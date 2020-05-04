@@ -7,10 +7,18 @@
     <nav class="menu">
       <span class="label">NAVIGATION</span>
       <ul>
-        <li :class="{'active': page === 'index'}">Home</li>
-        <li :class="{'active': page === 'notes'}">Notes</li>
-        <li :class="{'active': page === 'checklist'}">Checklist</li>
-        <li :class="{'active': page === 'pwmanager'}">Password Manager</li>
+        <li :class="{'active': page === 'index'}">
+          <nuxt-link to="/">Home</nuxt-link>
+        </li>
+        <li :class="{'active': page === 'notes'}">
+          <nuxt-link to="/notes">Notes</nuxt-link>
+        </li>
+        <li :class="{'active': page === 'checklist'}">
+          <nuxt-link to="/checklist">Checklist</nuxt-link>
+        </li>
+        <li :class="{'active': page === 'pwmanager'}">
+          <nuxt-link to="/pwmanager">Password Manager</nuxt-link>
+        </li>
       </ul>
 
       <span class="spacer"></span>
@@ -136,6 +144,12 @@ export default Vue.extend({
         color: inherit;
         text-decoration: none;
       }
+    }
+
+    a {
+      font-weight: inherit;
+      color: inherit;
+      text-decoration: none;
     }
   }
 }

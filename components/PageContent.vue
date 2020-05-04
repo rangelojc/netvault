@@ -2,6 +2,14 @@
   <div class="page-content"></div>
 </template>
 
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
+  props: ["page"]
+});
+</script>
+
 <style lang="scss">
 @import "~/assets/scss/vars.scss";
 
