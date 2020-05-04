@@ -9,6 +9,6 @@
   height: $header-height;
   width: 100%;
 
-  background-color: $dark31;
+  background-color: $dark21;
 }
 </style>

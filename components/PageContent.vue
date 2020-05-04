@@ -17,6 +17,6 @@ export default Vue.extend({
   width: 100%;
   min-height: calc(100% - #{$header-height});
 
-  background-color: $dark31;
+  background-color: $dark21;
 }
 </style>

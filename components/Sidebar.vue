@@ -120,6 +120,7 @@ export default Vue.extend({
     color: $inactive;
     font-weight: 500;
     margin-bottom: 5px;
+    cursor: pointer;
 
     &.active {
       color: $active;
