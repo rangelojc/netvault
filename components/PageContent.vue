@@ -1,13 +1,13 @@
 <template>
-  <div class="header">header</div>
+  <div class="page-content"></div>
 </template>
 
 <style lang="scss">
 @import "~/assets/scss/vars.scss";
 
-.header {
-  height: $header-height;
+.page-content {
   width: 100%;
+  min-height: calc(100% - #{$header-height});
 
   background-color: $dark31;
 }

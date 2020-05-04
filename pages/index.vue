@@ -1,7 +1,13 @@
 <template>
   <div class="app">
-    <Header />
-    <Sidebar />
+    <div class="app-left">
+      <Sidebar :page="$route.name" />
+    </div>
+
+    <div class="app-right">
+      <Header />
+      <PageContent :page="$route.name" />
+    </div>
   </div>
 </template>
 
@@ -9,21 +15,33 @@
 import Vue from "vue";
 import Header from "~/components/Header";
 import Sidebar from "~/components/Sidebar";
+import PageContent from "~/components/PageContent";
 
 export default Vue.extend({
   components: {
     Header,
-    Sidebar
+    Sidebar,
+    PageContent
   }
 });
 </script>
 
 <style lang="scss">
-body {
-  padding: 0;
-  margin: 0;
-}
-
 .app {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+
+  $r-width: 300px;
+
+  &-right {
+    height: auto;
+    width: calc(100% - #{$r-width});
+  }
+
+  &-left {
+    height: auto;
+    width: $r-width;
+  }
 }
 </style>
