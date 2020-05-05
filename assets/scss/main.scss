@@ -17,13 +17,13 @@ input {
 
 .app {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
     width: 100%;
 
     $r-width: 300px;
 
     &-right {
-        height: auto;
+        height: calc(100% - #{$header-height});
         width: calc(100% - #{$r-width});
         background-color: $dark21;
     }
@@ -35,7 +35,7 @@ input {
 
     &-content {
         width: 100%;
-        min-height: calc(100% - #{$header-height});
+        height: 100%;
 
         background-color: $dark21;
     }

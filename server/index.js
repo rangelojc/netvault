@@ -3,7 +3,7 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 
-const sqlManager = require("./sqlManager.js");
+const sqlManager = require("./classes/SQLManager.js");
 const apiRouter = require("./api.js");
 
 // Import and Set Nuxt.js options
