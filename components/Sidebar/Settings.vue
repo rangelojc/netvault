@@ -1,0 +1,22 @@
+<template>
+  <div class="menu-module settings">
+    <span class="label">SETTINGS</span>
+    <ul>
+      <li :class="{'active': page === 'profile'}">Profile</li>
+      <li :class="{'active': page === 'preferences'}">Preferences</li>
+      <li class="red">Log out</li>
+    </ul>
+  </div>
+</template>
+
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({});
+</script>
+
+<style lang="scss">
+.menu-module.settings {
+  margin-top: auto !important;
+}
+</style>

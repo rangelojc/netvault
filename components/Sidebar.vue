@@ -5,50 +5,26 @@
     </div>
 
     <nav class="menu">
-      <span class="label">NAVIGATION</span>
-      <ul>
-        <li :class="{'active': page === 'index'}">
-          <nuxt-link to="/">Home</nuxt-link>
-        </li>
-        <li :class="{'active': page === 'notes'}">
-          <nuxt-link to="/notes">Notes</nuxt-link>
-        </li>
-        <li :class="{'active': page === 'checklist'}">
-          <nuxt-link to="/checklist">Checklist</nuxt-link>
-        </li>
-        <li :class="{'active': page === 'pwmanager'}">
-          <nuxt-link to="/pwmanager">Password Manager</nuxt-link>
-        </li>
-      </ul>
-
-      <span class="spacer"></span>
-      <span class="label">BOOKMARKS</span>
-      <ul>
-        <li>Bookmark 1</li>
-        <li>Bookmark 2</li>
-        <li>Bookmark 3</li>
-        <li>Bookmark 4</li>
-        <li>Bookmark 5</li>
-        <li class="more">
-          <a href="#">More...</a>
-        </li>
-      </ul>
-
-      <span class="label settings">SETTINGS</span>
-      <ul>
-        <li :class="{'active': page === 'profile'}">Profile</li>
-        <li :class="{'active': page === 'preferences'}">Preferences</li>
-        <li class="red">Log out</li>
-      </ul>
+      <Navigation :page="page" />
+      <Bookmarks />
+      <Settings />
     </nav>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import Navigation from "~/components/Sidebar/Navigation";
+import Bookmarks from "~/components/Sidebar/Bookmarks";
+import Settings from "~/components/Sidebar/Settings";
 
 export default Vue.extend({
-  props: ["page"]
+  props: ["page"],
+  components: {
+    Navigation,
+    Bookmarks,
+    Settings
+  }
 });
 </script>
 
@@ -93,20 +69,17 @@ export default Vue.extend({
   display: flex;
   flex-flow: column nowrap;
 
+  &-module {
+    margin: 10px 0;
+    width: 100%;
+    height: auto;
+  }
+
   .label {
     display: block;
     letter-spacing: 3px;
     font-size: 12px;
     margin-bottom: 5px;
-
-    &.settings {
-      margin-top: auto;
-    }
-  }
-
-  .spacer {
-    display: block;
-    margin: 10px 0;
   }
 
   ul {

@@ -6,7 +6,7 @@
 
     <div class="app-right">
       <Header />
-      <ContentPWManager />
+      <ContentNotes />
     </div>
   </div>
 </template>
@@ -16,13 +16,13 @@ import Vue from "vue";
 import Header from "~/components/Header";
 import Sidebar from "~/components/Sidebar";
 
-import ContentPWManager from "~/pages/content/pwmanager";
+import ContentNotes from "~/pages/content/notes";
 
 export default Vue.extend({
   components: {
     Header,
     Sidebar,
-    ContentPWManager
+    ContentNotes
   }
 });
 </script>
