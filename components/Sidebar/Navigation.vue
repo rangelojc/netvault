@@ -2,8 +2,8 @@
   <div class="menu-module">
     <span class="label">NAVIGATION</span>
     <ul>
-      <li :class="{'active': page === 'index'}">
-        <nuxt-link to="/">Dashboard</nuxt-link>
+      <li :class="{'active': page === 'dashboard'}">
+        <nuxt-link to="/dashboard">Dashboard</nuxt-link>
       </li>
       <li :class="{'active': page === 'notes'}">
         <nuxt-link to="/notes">Notes</nuxt-link>

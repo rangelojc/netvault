@@ -1,5 +1,5 @@
 <template>
-  <div class="app-content">index page</div>
+  <div class="app-content">dashboard page</div>
 </template>
 
 <script lang="ts">
