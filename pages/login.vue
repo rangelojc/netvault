@@ -8,7 +8,7 @@
       <div class="separator"></div>
       <label for>Password:</label>
       <input class="login-txt" type="text" placeholder maxlength="32" />
-      <input class="submit-login" type="submit" value="Enter" />
+      <input class="submit-login" type="submit" value="Login" />
     </form>
   </div>
 </template>
