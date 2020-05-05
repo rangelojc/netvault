@@ -95,6 +95,10 @@ export default Vue.extend({
     margin-bottom: 5px;
     cursor: pointer;
 
+    &:hover {
+      color: $active;
+    }
+
     &.active {
       color: $active;
 
