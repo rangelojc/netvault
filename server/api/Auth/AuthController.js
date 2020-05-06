@@ -6,11 +6,17 @@ module.exports = class {
     }
 
     async login(params) {
-        const result = this.sqlmanager.exec(
-            "SELECT userId from users WHERE username = ? AND password = ?",
+        const result = await this.sqlmanager.exec(
+            "SELECT userId from netvault.users WHERE username = ? AND password = ?",
             [params.username, params.password]
         );
 
-        return new APIResponse(result);
+        console.log(result);
+
+        if (result.length > 0) {
+            const userId = result[0].userId;
+            return new APIResponse({ found: true, userId });
+        }
+        else return new APIResponse({ found: false });
     }
 }
