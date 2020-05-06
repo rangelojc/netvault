@@ -5,7 +5,7 @@ module.exports = class {
     }
 
     async getRecords(params) {
-        const result = await this.sqlmanager.query(
+        const result = await this.sqlmanager.exec(
             "SELECT * FROM pw_records WHERE userId = ?", [params.userId]
         );
 

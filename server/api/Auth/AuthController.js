@@ -6,7 +6,7 @@ module.exports = class {
     }
 
     async login(params) {
-        const result = this.sqlmanager.query(
+        const result = this.sqlmanager.exec(
             "SELECT userId from users WHERE username = ? AND password = ?",
             [params.username, params.password]
         );
