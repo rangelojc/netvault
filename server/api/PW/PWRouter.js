@@ -8,7 +8,6 @@ router.get('/:userId', async (req, res, next) => {
     const controller = new PWController(sqlmanager);
 
     const result = await controller.getRecords(req.params);
-
     res.send(result);
 });
 

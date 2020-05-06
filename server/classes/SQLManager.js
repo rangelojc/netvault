@@ -1,7 +1,5 @@
 const sqlite3 = require("sqlite3");
 
-const APIResponse = require("./APIResponse");
-
 module.exports = class {
     constructor() {
         this.db = new sqlite3.Database('nvdb.db');
@@ -14,12 +12,10 @@ module.exports = class {
             db.all(sql, (params || []), function (err, rows) {
                 db.close();
 
-                const response = new APIResponse({
+                resolve({
                     error: err.message,
                     data: rows
-                })
-
-                resolve(response);
+                });
             });
         });
     }
@@ -31,12 +27,10 @@ module.exports = class {
             db.run(sql, (params || []), function (err) {
                 db.close();
 
-                const response = new APIResponse({
+                resolve({
                     error: err.message,
                     data: this.lastID
-                })
-
-                resolve(response);
+                });
             })
         });
     }
