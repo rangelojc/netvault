@@ -4,7 +4,9 @@ const { Nuxt, Builder } = require('nuxt')
 const app = express()
 
 const sqlManager = require("./classes/SQLManager.js");
-const apiRouter = require("./api.js");
+const apiRouter = require("./api/api.js");
+
+const auth = require("../middleware/auth");
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
@@ -12,6 +14,8 @@ config.dev = process.env.NODE_ENV !== 'production';
 
 // Attach sql manager to app locals
 app.locals.sqlmanager = new sqlManager();
+
+app.use(auth);
 
 // Attach api routes
 app.use('/api', apiRouter)

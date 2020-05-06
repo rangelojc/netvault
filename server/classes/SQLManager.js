@@ -4,7 +4,9 @@ const APIResponse = require("./APIResponse");
 
 module.exports = class {
     constructor() {
-        this.db = new sqlite3.Database(`nvdb.db`);
+        const path = process.env.DB_SQLITE_PATH;
+        console.log(process.env);
+        this.db = new sqlite3.Database(path);
     }
 
     query(sql, params) {
