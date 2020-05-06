@@ -5,10 +5,13 @@
     <form class="login-form">
       <label for>Username:</label>
       <input class="login-txt" type="text" placeholder maxlength="32" />
+
       <div class="separator"></div>
+
       <label for>Password:</label>
       <input class="login-txt" type="text" placeholder maxlength="32" />
-      <input class="submit-login" type="submit" value="Login" />
+
+      <input class="submit-login" type="submit" value="Login" @click="login" />
     </form>
   </div>
 </template>
@@ -16,7 +19,14 @@
 <script lang="ts">
 import Vue from "vue";
 
-export default Vue.extend({});
+export default Vue.extend({
+  methods: {
+    login(evt: Event) {
+      evt.preventDefault();
+      this.$router.push("dashboard");
+    }
+  }
+});
 </script>
 
 <style lang="scss">
