@@ -1,18 +1,8 @@
 <template></template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
-export default Vue.extend({
-  methods: {
-    checkLogin() {
-      //if user is unauthenticated
-      this.$router.push("login");
-    }
-  },
-  mounted() {
-    this.checkLogin();
-  }
-});
+export default Vue.extend({});
 </script>
 
 <style lang="scss">

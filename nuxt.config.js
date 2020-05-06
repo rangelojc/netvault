@@ -36,21 +36,27 @@ module.exports = {
     ** Nuxt.js dev-modules
     */
     buildModules: [
-        '@nuxt/typescript-build',
     ],
     /*
     ** Nuxt.js modules
     */
     modules: [
+        '@nuxtjs/axios'
     ],
     /*
     ** Build configuration
     */
+    auth: {
+        // Options
+    },
     build: {
         /*
         ** You can extend webpack config here
         */
         extend(config, ctx) {
         }
-    }
+    },
+    serverMiddleware: [
+        `~/middleware/auth.js`
+    ]
 }

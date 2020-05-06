@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 import Navigation from "~/components/Sidebar/Navigation";
 import Bookmarks from "~/components/Sidebar/Bookmarks";

@@ -1,35 +1,34 @@
 const express = require('express')
-const consola = require('consola')
+const session = require('express-session')
+
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 
 const sqlManager = require("./classes/SQLManager.js");
 const apiRouter = require("./api/api.js");
 
-const auth = require("../middleware/auth");
-
 // Import and Set Nuxt.js options
-const config = require('../nuxt.config.js')
-config.dev = process.env.NODE_ENV !== 'production';
+const nuxtconfig = require('../nuxt.config.js')
+nuxtconfig.dev = process.env.NODE_ENV !== 'production';
+
+//session
+app.use(session({ secret: 'netvault2020', saveUninitialized: true, resave: true }));
 
 // Attach sql manager to app locals
 app.locals.sqlmanager = new sqlManager();
 
-app.use(auth);
-
 // Attach api routes
 app.use('/api', apiRouter)
 
-async function start() {
+const startNuxt = async function () {
     // Init Nuxt.js
-    const nuxt = new Nuxt(config)
-
+    const nuxt = new Nuxt(nuxtconfig)
     const { host, port } = nuxt.options.server
 
-    await nuxt.ready()
+    await nuxt.ready();
 
     // Build only in dev mode
-    if (config.dev) {
+    if (nuxtconfig.dev) {
         const builder = new Builder(nuxt)
         await builder.build()
     }
@@ -40,10 +39,7 @@ async function start() {
     // Listen the server
     app.listen(port, host);
 
-    consola.ready({
-        message: `Server listening on http://${host}:${port}`,
-        badge: true
-    })
+    console.log(`Server listening on http://${host}:${port}`);
 }
 
-start();
+startNuxt();

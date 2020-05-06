@@ -1,7 +1,8 @@
-const session = require('express-session')
+module.exports = function (req, res, next) {
+    const sess = req.session;
 
-function authenticate(req, res, next) {
-
+    if (!sess.userId && req.url !== "/login") {
+        res.redirect('/login');
+    }
+    else next();
 }
-
-module.exports = authenticate;

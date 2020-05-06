@@ -16,12 +16,12 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 
 export default Vue.extend({
   methods: {
-    login(evt: Event) {
+    login(evt) {
       evt.preventDefault();
       this.$router.push("dashboard");
     }

@@ -1,4 +1,4 @@
-class PWManagerController {
+module.exports = class {
     constructor(sqlmanager) {
         this.sqlmanager = sqlmanager;
     }
@@ -11,5 +11,3 @@ class PWManagerController {
         return res;
     }
 }
-
-module.exports = PWManagerController;

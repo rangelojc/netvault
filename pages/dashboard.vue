@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from "vue";
 import Header from "~/components/Header";
 import Sidebar from "~/components/Sidebar";
