@@ -8,7 +8,8 @@ router.post('/login', exceptionThrower(async (req, res, next) => {
     const sqlmanager = req.app.locals.sqlmanager;
     const controller = new AuthController(sqlmanager);
 
-    const result = await controller.login(req.body);
+    const session = req.session;
+    const result = await controller.login(req.body, session);
     res.send(result);
 }));
 

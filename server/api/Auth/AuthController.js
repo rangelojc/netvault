@@ -5,7 +5,7 @@ module.exports = class {
         this.sqlmanager = sqlmanager;
     }
 
-    async login(params) {
+    async login(params, session) {
         const result = await this.sqlmanager.exec(
             "SELECT userId from netvault.users WHERE username = ? AND password = ?",
             [params.username, params.password]
@@ -13,6 +13,8 @@ module.exports = class {
 
         if (result.length > 0) {
             const userId = result[0].userId;
+            session.userId = userId;
+
             return new APIResponse({ found: true, userId });
         }
         else return new APIResponse({ found: false });

@@ -2,6 +2,8 @@
     <div class="login">
         <div class="login-title">NETVAULT</div>
 
+        <div class="login-error-msg">{{ error }}</div>
+
         <form class="login-form">
             <label for>Username:</label>
             <input ref="username" class="login-txt" type="text" placeholder maxlength="32" />
@@ -21,6 +23,11 @@ import Vue from "vue";
 import axios from "axios";
 
 export default Vue.extend({
+    data() {
+        return {
+            error: ""
+        };
+    },
     methods: {
         async login(evt) {
             evt.preventDefault();
@@ -31,8 +38,17 @@ export default Vue.extend({
             };
 
             const res = await axios.post("/api/auth/login", params);
+            const data = res.data;
 
-            console.log(res.data, params);
+            if (data.data.found) this.$router.push("/dashboard");
+            else this.error = "User not found.";
+
+            this.clear();
+        },
+        clear() {
+            this.$refs.username.focus();
+            this.$refs.username.value = "";
+            this.$refs.password.value = "";
         }
     }
 });
@@ -58,6 +74,12 @@ export default Vue.extend({
     &-title {
         font-size: 40px;
         letter-spacing: 3px;
+    }
+
+    &-error-msg {
+        margin-top: 20px;
+        color: $accent1;
+        height: 1em;
     }
 }
 
