@@ -1,4 +1,4 @@
-const APIResponse = require("../../classes/APIResponse");
+const { APIResponse } = require("../../classes/APIResponse");
 
 module.exports = class {
     constructor(sqlmanager) {
@@ -10,8 +10,6 @@ module.exports = class {
             "SELECT userId from netvault.users WHERE username = ? AND password = ?",
             [params.username, params.password]
         );
-
-        console.log(result);
 
         if (result.length > 0) {
             const userId = result[0].userId;

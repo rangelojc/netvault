@@ -10,9 +10,9 @@ const apiRouter = require("./api/api.js");
 
 dotenv.config();
 
-// Import and Set Nuxt.js options
-const nuxtconfig = require('../nuxt.config.js')
-nuxtconfig.dev = process.env.NODE_ENV !== 'production';
+//json and url middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 //session
 app.use(session({ secret: 'netvault2020', saveUninitialized: true, resave: true }));
@@ -24,6 +24,10 @@ app.locals.sqlmanager = new sqlManager();
 app.use('/api', apiRouter)
 
 const startNuxt = async function () {
+    // Import and Set Nuxt.js options
+    const nuxtconfig = require('../nuxt.config.js')
+    nuxtconfig.dev = process.env.NODE_ENV !== 'production';
+
     // Init Nuxt.js
     const nuxt = new Nuxt(nuxtconfig)
     const { host, port } = nuxt.options.server

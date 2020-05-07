@@ -57,6 +57,6 @@ module.exports = {
         }
     },
     serverMiddleware: [
-        `~/middleware/auth.js`
+        `~/server/middleware/auth.js`
     ]
 }
