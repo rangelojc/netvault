@@ -17,7 +17,7 @@ router.get('/logout', (req, res) => {
     if (req.session.userId && req.cookies[process.env.SESSION_KEY]) {
         req.session.userId = null;
         res.clearCookie(process.env.SESSION_KEY);
-        res.redirect('/login?logout=true');
+        res.redirect('/logout');
     } else {
         res.redirect('/login');
     }

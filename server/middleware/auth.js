@@ -3,11 +3,13 @@ function is(group, url) {
     return paths[1] === group;
 }
 
+const list = ["/login", "/logout"];
+
 module.exports = function (req, res, next) {
     const sess = req.session;
     const cookz = req.cookies || {};
 
-    if (req.url === "/login") {
+    if (list.find(i => req.url === i)) {
         if (sess.userId && cookz[process.env.SESSION_KEY]) res.redirect('/dashboard');
         else next();
     }
