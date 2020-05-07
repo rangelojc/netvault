@@ -1,21 +1,25 @@
 const express = require('express')
-const session = require('express-session')
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 
 const { Nuxt, Builder } = require('nuxt')
-const app = express()
+const app = express();
+
+//custom imports
+const sessionMiddleware = require("./utils/sessionMiddleware");
 
 const sqlManager = require("./classes/SQLManager.js");
 const apiRouter = require("./api/api.js");
 
 dotenv.config();
 
-//json and url middleware
+//json, cookie url middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 //session
-app.use(session({ secret: 'netvault2020', saveUninitialized: true, resave: true }));
+sessionMiddleware(app);
 
 // Attach sql manager to app locals
 app.locals.sqlmanager = new sqlManager();

@@ -5,10 +5,13 @@ function is(group, url) {
 
 module.exports = function (req, res, next) {
     const sess = req.session;
+    const cookz = req.cookies || {};
 
-    //redirect to login if userId does not exist, url is not login and the url is not API group
-    if (!sess.userId && req.url !== "/login" && is("api", req.url) === false) {
-        res.redirect('/login');
+    if (req.url === "/login") {
+        if (sess.userId && cookz[process.env.SESSION_KEY]) res.redirect('/dashboard');
+        else next();
     }
-    else next();
+    else if (sess.userId && cookz[process.env.SESSION_KEY]) next();
+    else if (is("api", req.url) === true) next();
+    else if (is("api", req.url) === false) res.redirect('/login');
 }

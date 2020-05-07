@@ -50,6 +50,9 @@ export default Vue.extend({
             this.$refs.username.value = "";
             this.$refs.password.value = "";
         }
+    },
+    mounted() {
+        console.log(this.$router);
     }
 });
 </script>
