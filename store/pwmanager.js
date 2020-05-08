@@ -1,6 +1,7 @@
 export const state = () => ({
     categories: [],
-    records: []
+    records: [],
+    foo: "foo123"
 })
 
 export const mutations = {

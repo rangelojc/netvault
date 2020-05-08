@@ -2,7 +2,6 @@
     <div class="app-content">
         <div class="pwmanager">
             <div class="actions"></div>
-
             <div class="pwlist" :class="getListMode()">
                 <div class="item" v-for="item in 10" :key="idx"></div>
                 <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
@@ -16,6 +15,11 @@ import Vue from "vue";
 
 export default Vue.extend({
     layout: "main",
+    computed: {
+        foo() {
+            return this.$store.state.pwmanager.foo;
+        }
+    },
     data() {
         return {
             listMode: "grid"
