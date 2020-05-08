@@ -3,7 +3,7 @@
         <div class="pwmanager">
             <div class="actions"></div>
             <div class="pwlist" :class="getListMode()">
-                <div class="item" v-for="item in 10" :key="idx"></div>
+                <div class="item" v-for="item in categories" :key="idx"></div>
                 <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
             </div>
         </div>
@@ -12,13 +12,15 @@
 
 <script>
 import Vue from "vue";
+import { mapState } from "vuex";
 
 export default Vue.extend({
     layout: "main",
     computed: {
-        foo() {
-            return this.$store.state.pwmanager.foo;
-        }
+        ...mapState("pwmanager", {
+            categories: state => state.categories,
+            records: state => state.records
+        })
     },
     data() {
         return {

@@ -1,7 +1,6 @@
 export const state = () => ({
     categories: [],
-    records: [],
-    foo: "foo123"
+    records: []
 })
 
 export const mutations = {
@@ -14,5 +13,9 @@ export const mutations = {
 }
 
 export const actions = {
+
+}
+
+export const getters = {
 
 }
