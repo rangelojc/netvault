@@ -13,7 +13,7 @@ router.post('/login', exceptionThrower(async (req, res, next) => {
     res.send(result);
 }));
 
-router.get('/logout', (req, res) => {
+router.get('/logout', exceptionThrower((req, res) => {
     if (req.session.userId && req.cookies[process.env.SESSION_KEY]) {
         req.session.userId = null;
         res.clearCookie(process.env.SESSION_KEY);
@@ -21,6 +21,6 @@ router.get('/logout', (req, res) => {
     } else {
         res.redirect('/login');
     }
-});
+}));
 
 module.exports = router;
