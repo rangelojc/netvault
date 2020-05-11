@@ -4,16 +4,21 @@ export const state = () => ({
 })
 
 export const mutations = {
-    setCategories(state, categories) {
+    categories(state, categories) {
         state.categories = categories;
     },
-    setRecords(state, records) {
+    records(state, records) {
         state.records = records;
     }
 }
 
 export const actions = {
-
+    categories(context, categories) {
+        context.commit("categories", categories)
+    },
+    records(context, records) {
+        context.commit("records", records);
+    }
 }
 
 export const getters = {

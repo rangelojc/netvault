@@ -1,4 +1,4 @@
-const APIResponse = require("../../classes/APIResponse");
+const response = require("../../classes/APIResponse");
 module.exports = class {
     constructor(sqlmanager) {
         this.sqlmanager = sqlmanager;
@@ -9,6 +9,14 @@ module.exports = class {
             "SELECT * FROM pw_records WHERE userId = ?", [params.userId]
         );
 
-        return new APIResponse(result);
+        return new response.APIResponse(result);
+    }
+
+    async getCategories(params) {
+        const result = await this.sqlmanager.exec(
+            "SELECT * FROM pw_categories WHERE userId = ?", [params.userId]
+        );
+
+        return new response.APIResponse(result);
     }
 }

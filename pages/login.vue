@@ -43,7 +43,7 @@ export default Vue.extend({
             if (data.data.found) {
                 localStorage["NETVAULT_USERID"] = data.data.user.userId;
                 localStorage["NETVAULT_USERNAME"] = data.data.user.username;
-                this.$router.push("/dashboard");
+                this.$router.push("/pwmanager");
             } else this.error = "User not found.";
 
             this.clear();

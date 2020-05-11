@@ -8,13 +8,25 @@ html {
   min-height: 100vh;
   font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
-  color: #ccc;
+  color: $maintxt;
   overflow: hidden;
 }
 
-input {
+input,
+button,
+select {
   font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
+}
+
+button {
+  height: 40px;
+  background: $dark41;
+  border-radius: 3px;
+  color: $maintxt;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 *,
