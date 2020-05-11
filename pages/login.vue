@@ -40,8 +40,11 @@ export default Vue.extend({
             const res = await axios.post("/api/auth/login", params);
             const data = res.data;
 
-            if (data.data.found) this.$router.push("/dashboard");
-            else this.error = "User not found.";
+            if (data.data.found) {
+                localStorage["NETVAULT_USERID"] = data.data.user.userId;
+                localStorage["NETVAULT_USERNAME"] = data.data.user.username;
+                this.$router.push("/dashboard");
+            } else this.error = "User not found.";
 
             this.clear();
         },

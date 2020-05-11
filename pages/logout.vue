@@ -28,6 +28,8 @@ export default Vue.extend({
         };
     },
     mounted() {
+        localStorage.removeItem("NETVAULT_USERID");
+        localStorage.removeItem("NETVAULT_USERNAME");
         setInterval(() => {
             this.seconds -= 1;
             if (this.seconds === 0) this.$router.push("/login");
