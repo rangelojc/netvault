@@ -25,6 +25,10 @@
                         </div>
                     </div>
                     <div class="record-items">
+                        <button class="add-record">
+                            <span>+</span>
+                        </button>
+
                         <div
                             class="record"
                             v-for="record, idx in records"
@@ -50,6 +54,10 @@
                         </div>
                     </div>
                     <div class="record-items">
+                        <button class="add-record">
+                            <span>+</span>
+                        </button>
+
                         <div
                             class="record"
                             v-for="record, idx in records"
@@ -119,7 +127,7 @@ export default Vue.extend({
         height: 50px;
         width: 100%;
         padding: 0 20px;
-        margin-top: 30px;
+        margin-top: 10px;
 
         display: flex;
         align-items: center;
@@ -139,6 +147,7 @@ export default Vue.extend({
 .pwcontent {
     height: calc(100% - 50px);
 
+    margin-top: 20px;
     padding: 0 20px;
     overflow: auto;
 
@@ -154,6 +163,12 @@ export default Vue.extend({
             justify-content: flex-start;
             align-items: flex-start;
             align-content: flex-start;
+        }
+
+        .add-record {
+            height: 60px;
+            width: 60px;
+            margin: 10px;
         }
 
         .record {
@@ -289,6 +304,11 @@ export default Vue.extend({
         margin-top: 10px;
         width: 100%;
         height: auto;
+
+        .add-record {
+            font-size: 24px;
+            font-weight: 300;
+        }
 
         .record {
             display: flex;
