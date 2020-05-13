@@ -1,8 +1,13 @@
 <template>
     <div class="app-content">
         <div class="pwmanager">
-            <div class="actions"></div>
-            <div class="pwlist" :class="getListMode()">
+            <div class="pwhead">
+                <span class="title">PASSWORD MANAGER</span>
+                <div class="actions">
+                    <input class="search" type="text" placeholder="Search..." />
+                </div>
+            </div>
+            <div class="pwcontent" :class="getListMode()">
                 <button class="add-category">
                     <span>+ ADD CATEGORY</span>
                 </button>
@@ -110,16 +115,30 @@ export default Vue.extend({
     width: 100%;
     height: 100%;
 
-    .actions {
+    .pwhead {
         height: 50px;
         width: 100%;
+        padding: 0 20px;
+        margin-top: 30px;
+
+        display: flex;
+        align-items: center;
+
+        .actions {
+            margin-left: auto;
+        }
+
+        .title {
+            display: inline-block;
+            font-size: 18px;
+        }
     }
 }
 
-.pwlist {
+.pwcontent {
     height: calc(100% - 50px);
 
-    padding: 20px;
+    padding: 0 20px;
     overflow: auto;
 
     display: flex;
@@ -191,7 +210,7 @@ export default Vue.extend({
     }
 }
 
-.pwlist .category {
+.pwcontent .category {
     width: 100%;
     height: auto;
     margin-bottom: 20px;
@@ -251,6 +270,8 @@ export default Vue.extend({
                 font-size: 14px;
                 text-align: center;
                 padding: 2px 10px;
+
+                cursor: pointer;
             }
 
             > .line {
