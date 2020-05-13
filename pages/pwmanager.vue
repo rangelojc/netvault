@@ -130,6 +130,7 @@ export default Vue.extend({
 
         .title {
             display: inline-block;
+            font-weight: bold;
             font-size: 18px;
         }
     }

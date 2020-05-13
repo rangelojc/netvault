@@ -5,7 +5,7 @@
         </div>
 
         <div class="app-right">
-            <Header />
+            <!-- <Header /> -->
             <nuxt />
         </div>
     </div>
@@ -35,7 +35,8 @@ export default Vue.extend({
     $r-width: 300px;
 
     &-right {
-        height: calc(100% - #{$header-height});
+        // height: calc(100% - #{$header-height});
+        height: 100%;
         width: calc(100% - #{$r-width});
         background-color: $dark21;
     }
