@@ -7,7 +7,7 @@
         <nav class="menu">
             <Navigation :page="page" />
             <Bookmarks />
-            <Settings />
+            <Settings :page="page" />
         </nav>
     </div>
 </template>

@@ -14,7 +14,9 @@
 <script>
 import Vue from "vue";
 
-export default Vue.extend({});
+export default Vue.extend({
+    props: ["page"]
+});
 </script>
 
 <style lang="scss">
