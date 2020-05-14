@@ -32,7 +32,6 @@ button {
 input {
   background: $dark52;
   border: none;
-  border-radius: 100px;
   height: 40px;
   width: 300px;
   outline: none;
@@ -43,6 +42,7 @@ input {
     background-image: url("~assets/icons/search.svg");
     background-position: left;
     background-size: 20px 20px;
+    border-radius: 100px;
   }
 }
 
