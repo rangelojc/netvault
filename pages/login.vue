@@ -118,6 +118,7 @@ export default Vue.extend({
         outline: none;
         text-align: center;
         color: #ccc;
+        border-radius: 0px;
     }
 
     .error {
