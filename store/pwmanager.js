@@ -1,6 +1,8 @@
 export const state = () => ({
     categories: [],
-    records: []
+    records: [],
+    categoriesWithRecords: [],
+    uncategorizedRecords: []
 })
 
 export const mutations = {
@@ -9,15 +11,26 @@ export const mutations = {
     },
     records(state, records) {
         state.records = records;
+    },
+    categoriesWithRecords(state) {
+        const categories = [].concat(state.categories);
+        categories.forEach(c => {
+            c.records = state.records.filter(r => r.categoryId === c.categoryId);
+        });
+
+        state.categoriesWithRecords = categories;
+    },
+    uncategorizedRecords(state) {
+        state.uncategorizedRecords = [].concat(state.records).filter(r => r.categoryId === null);
     }
 }
 
 export const actions = {
-    categories(context, categories) {
-        context.commit("categories", categories)
-    },
-    records(context, records) {
-        context.commit("records", records);
+    update(context, payload) {
+        context.commit("categories", payload[0].data)
+        context.commit("records", payload[1].data);
+        context.commit("categoriesWithRecords");
+        context.commit("uncategorizedRecords");
     }
 }
 

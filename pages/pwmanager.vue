@@ -12,11 +12,11 @@
                     <span>+ ADD CATEGORY</span>
                 </button>
 
-                <div class="category" v-for="category in categories">
+                <div class="category" v-for="category in categoriesWithRecords">
                     <div class="head">
                         <div class="head-title">
                             <span class="title">{{category.label.toUpperCase()}}</span>
-                            <span class="cnt">{{`(${getCategoryCount(category.categoryId)})`}}</span>
+                            <span class="cnt">{{`(${category.records.length})`}}</span>
                         </div>
                         <div class="head-actions">
                             <span>SORT BY</span>
@@ -29,12 +29,7 @@
                             <span>+</span>
                         </button>
 
-                        <div
-                            class="record"
-                            v-for="record, idx in records"
-                            v-if="category.categoryId === record.categoryId"
-                            :key="idx"
-                        >
+                        <div class="record" v-for="record, idx in category.records" :key="idx">
                             <span>{{record.label}}</span>
                         </div>
                         <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
@@ -45,7 +40,7 @@
                     <div class="head">
                         <div class="head-title">
                             <span class="title">UNCATEGORIZED</span>
-                            <span class="cnt">{{`(${getCategoryCount(null)})`}}</span>
+                            <span class="cnt">{{`(${uncategorizedRecords.length})`}}</span>
                         </div>
                         <div class="head-actions">
                             <span>SORT BY</span>
@@ -60,8 +55,7 @@
 
                         <div
                             class="record"
-                            v-for="record, idx in records"
-                            v-if="record.categoryId == null"
+                            v-for="record, idx in uncategorizedRecords"
                             :key="idx"
                         >{{record.label}}</div>
                         <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
@@ -82,8 +76,8 @@ export default Vue.extend({
     layout: "main",
     computed: {
         ...mapState("pwmanager", {
-            categories: state => state.categories,
-            records: state => state.records
+            categoriesWithRecords: state => state.categoriesWithRecords,
+            uncategorizedRecords: state => state.uncategorizedRecords
         })
     },
     data() {
@@ -97,20 +91,14 @@ export default Vue.extend({
                 grid: this.listMode === "grid",
                 list: this.listMode === "list"
             };
-        },
-        getCategoryCount(categoryId) {
-            return this.records.filter(r => r.categoryId === categoryId).length;
         }
     },
     mounted() {
         const userId = localStorage.NETVAULT_USERID;
+        const getarry = [pwApi.getCategories(userId), pwApi.getRecords(userId)];
 
-        pwApi.getCategories(userId).then(data => {
-            this.$store.dispatch("pwmanager/categories", data.data);
-        });
-
-        pwApi.getRecords(userId).then(data => {
-            this.$store.dispatch("pwmanager/records", data.data);
+        Promise.all(getarry).then(responses => {
+            this.$store.dispatch("pwmanager/update", responses);
         });
     }
 });
