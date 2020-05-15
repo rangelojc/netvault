@@ -4,65 +4,69 @@
             <div class="pwhead">
                 <span class="title">PASSWORD MANAGER</span>
                 <div class="actions">
-                    <input class="search" type="text" placeholder="Search..." />
+                    <input class="inp-search" type="text" placeholder="Search..." />
                 </div>
             </div>
-            <div class="pwcontent" :class="getListMode()">
-                <button class="add-category">
+            <div class="pwcontent">
+                <button class="btn-add-category">
                     <span>+ ADD CATEGORY</span>
                 </button>
 
-                <div class="category" v-for="category in categoriesWithRecords">
-                    <div class="head">
-                        <div class="head-title">
-                            <span class="title">{{category.label.toUpperCase()}}</span>
-                            <span class="cnt">{{`(${category.records.length})`}}</span>
+                <div class="pwlist" :class="getListMode()">
+                    <div class="category" v-for="category in categoriesWithRecords">
+                        <div class="head">
+                            <div class="head-title">
+                                <span class="title">{{category.label.toUpperCase()}}</span>
+                                <span class="cnt">{{`(${category.records.length})`}}</span>
+                            </div>
+                            <div class="head-actions">
+                                <span>SORT BY</span>
+                                <div class="select-wrapper">DEFAULT</div>
+                                <div class="line"></div>
+                            </div>
                         </div>
-                        <div class="head-actions">
-                            <span>SORT BY</span>
-                            <div class="select-wrapper">DEFAULT</div>
-                            <div class="line"></div>
+                        <div class="record-items">
+                            <button class="add-record" @click="addRecord(category.categoryId)">
+                                <span>+</span>
+                            </button>
+
+                            <div class="record" v-for="record, idx in category.records" :key="idx">
+                                <span>{{record.label}}</span>
+                            </div>
+                            <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
                         </div>
                     </div>
-                    <div class="record-items">
-                        <button class="add-record">
-                            <span>+</span>
-                        </button>
 
-                        <div class="record" v-for="record, idx in category.records" :key="idx">
-                            <span>{{record.label}}</span>
+                    <div class="category">
+                        <div class="head">
+                            <div class="head-title">
+                                <span class="title">UNCATEGORIZED</span>
+                                <span class="cnt">{{`(${uncategorizedRecords.length})`}}</span>
+                            </div>
+                            <div class="head-actions">
+                                <span>SORT BY</span>
+                                <div class="select-wrapper">DEFAULT</div>
+                                <div class="line"></div>
+                            </div>
                         </div>
-                        <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
-                    </div>
-                </div>
+                        <div class="record-items">
+                            <button class="add-record" @click="addRecord(null)">
+                                <span>+</span>
+                            </button>
 
-                <div class="category">
-                    <div class="head">
-                        <div class="head-title">
-                            <span class="title">UNCATEGORIZED</span>
-                            <span class="cnt">{{`(${uncategorizedRecords.length})`}}</span>
+                            <div
+                                class="record"
+                                v-for="record, idx in uncategorizedRecords"
+                                :key="idx"
+                            >{{record.label}}</div>
+                            <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
                         </div>
-                        <div class="head-actions">
-                            <span>SORT BY</span>
-                            <div class="select-wrapper">DEFAULT</div>
-                            <div class="line"></div>
-                        </div>
-                    </div>
-                    <div class="record-items">
-                        <button class="add-record">
-                            <span>+</span>
-                        </button>
-
-                        <div
-                            class="record"
-                            v-for="record, idx in uncategorizedRecords"
-                            :key="idx"
-                        >{{record.label}}</div>
-                        <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- <AddRecord /> -->
     </div>
 </template>
 
@@ -70,9 +74,14 @@
 import Vue from "vue";
 import { mapState } from "vuex";
 
-import { pwApi } from "../assets/scripts/apiService";
+import { pwApi } from "~/assets/scripts/apiService";
+
+import AddRecord from "~/components/Forms/AddRecord";
 
 export default Vue.extend({
+    components: {
+        AddRecord
+    },
     layout: "main",
     computed: {
         ...mapState("pwmanager", {
@@ -91,15 +100,25 @@ export default Vue.extend({
                 grid: this.listMode === "grid",
                 list: this.listMode === "list"
             };
+        },
+        getData() {
+            const userId = localStorage.NETVAULT_USERID;
+            const getarry = [
+                pwApi.getCategories(userId),
+                pwApi.getRecords(userId)
+            ];
+
+            Promise.all(getarry).then(responses => {
+                this.$store.dispatch("pwmanager/update", responses);
+            });
+        },
+
+        addRecord(categoryId) {
+            const record = { categoryId };
         }
     },
     mounted() {
-        const userId = localStorage.NETVAULT_USERID;
-        const getarry = [pwApi.getCategories(userId), pwApi.getRecords(userId)];
-
-        Promise.all(getarry).then(responses => {
-            this.$store.dispatch("pwmanager/update", responses);
-        });
+        this.getData();
     }
 });
 </script>
@@ -110,12 +129,15 @@ export default Vue.extend({
 .pwmanager {
     width: 100%;
     height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 
     .pwhead {
         height: 50px;
         width: 100%;
-        padding: 0 20px;
         margin-top: 10px;
+        padding: 0 20px;
 
         display: flex;
         align-items: center;
@@ -133,16 +155,35 @@ export default Vue.extend({
 }
 
 .pwcontent {
-    height: calc(100% - 50px);
-
-    margin-top: 20px;
+    $offset: $header-height + 20px;
+    height: calc(100% - #{$offset});
+    overflow: hidden;
     padding: 0 20px;
-    overflow: auto;
 
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: center;
+
+    .btn-add-category {
+        width: 100%;
+        height: 30px;
+        margin-bottom: 20px;
+        background: transparent;
+        letter-spacing: 2px;
+        margin: 20px 0 10px;
+
+        &:hover {
+            transition: 300ms;
+            background: $dark41;
+        }
+    }
+}
+
+.pwcontent > .pwlist {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
 
     &.grid {
         .category .record-items {
@@ -194,22 +235,9 @@ export default Vue.extend({
             margin: 0;
         }
     }
-
-    .add-category {
-        width: 100%;
-        height: 30px;
-        margin-bottom: 20px;
-        background: transparent;
-        letter-spacing: 2px;
-
-        &:hover {
-            transition: 300ms;
-            background: $dark41;
-        }
-    }
 }
 
-.pwcontent .category {
+.pwcontent > .pwlist > .category {
     width: 100%;
     height: auto;
     margin-bottom: 20px;

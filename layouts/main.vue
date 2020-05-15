@@ -49,6 +49,10 @@ export default Vue.extend({
     &-content {
         width: 100%;
         height: 100%;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
 
         background-color: $dark21;
     }

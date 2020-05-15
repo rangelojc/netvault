@@ -19,4 +19,13 @@ module.exports = class {
 
         return new response.APIResponse(result);
     }
+
+    async addRecord(params) {
+        const result = await this.sqlmanager.exec(
+            "INSERT INTO pw_categories SET ?",
+            { ...params }
+        );
+
+        return new response.APIResponse(result);
+    }
 }
