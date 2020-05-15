@@ -1,29 +1,29 @@
 <template>
-  <div class="header">
-    <div class="profile">
-      <span class="username">user@mail.com</span>
+    <div class="header">
+        <div class="profile">
+            <span class="username">user@mail.com</span>
+        </div>
     </div>
-  </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "~/assets/scss/vars.scss";
 
 .header {
-  height: $header-height;
-  width: 100%;
+    height: $header-height;
+    width: 100%;
 
-  background-color: $dark21;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
+    background-color: $dark21;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
 
-  padding: 0 20px;
+    padding: 0 20px;
 
-  .profile {
-    .username {
-      font-weight: 600;
+    .profile {
+        .username {
+            font-weight: 600;
+        }
     }
-  }
 }
 </style>

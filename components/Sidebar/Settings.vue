@@ -19,7 +19,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .menu-module.settings {
     margin-top: auto !important;
 
