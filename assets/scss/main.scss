@@ -21,7 +21,7 @@ select {
 
 button {
   height: 40px;
-  background: $dark41;
+  background: $accent2;
   border-radius: 3px;
   color: $maintxt;
   border: none;
@@ -44,6 +44,16 @@ input {
     background-size: 20px 20px;
     border-radius: 100px;
   }
+}
+
+select {
+  background: $dark52;
+  border: none;
+  height: 40px;
+  width: 300px;
+  outline: none;
+  color: $maintxt;
+
 }
 
 *,

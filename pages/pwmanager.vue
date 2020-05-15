@@ -9,7 +9,7 @@
             </div>
             <div class="pwcontent">
                 <button class="btn-add-category">
-                    <span>+ ADD CATEGORY</span>
+                    <span @click="addCategory">+ ADD CATEGORY</span>
                 </button>
 
                 <div class="pwlist" :class="getListMode()">
@@ -66,7 +66,8 @@
             </div>
         </div>
 
-        <!-- <AddRecord /> -->
+        <AddRecordForm :data="forms.addRecord" />
+        <AddCategoryForm :data="forms.addCategory" />
     </div>
 </template>
 
@@ -76,11 +77,21 @@ import { mapState } from "vuex";
 
 import { pwApi } from "~/assets/scripts/apiService";
 
-import AddRecord from "~/components/Forms/AddRecord";
+import AddRecordForm from "~/components/Forms/AddRecordForm";
+import AddCategoryForm from "~/components/Forms/AddCategoryForm";
+
+const DATA_MODEL = {
+    listMode: "grid",
+    forms: {
+        addRecord: { show: false },
+        addCategory: { show: false }
+    }
+};
 
 export default Vue.extend({
     components: {
-        AddRecord
+        AddRecordForm,
+        AddCategoryForm
     },
     layout: "main",
     computed: {
@@ -90,9 +101,7 @@ export default Vue.extend({
         })
     },
     data() {
-        return {
-            listMode: "grid"
-        };
+        return DATA_MODEL;
     },
     methods: {
         getListMode() {
@@ -115,6 +124,15 @@ export default Vue.extend({
 
         addRecord(categoryId) {
             const record = { categoryId };
+
+            this.forms.addRecord.show = true;
+            this.forms.addRecord.record = record;
+            this.forms.addRecord.label = this.categoriesWithRecords.find(
+                c => c.categoryId === categoryId
+            ).label;
+        },
+        addCategory() {
+            this.forms.addCategory.show = true;
         }
     },
     mounted() {

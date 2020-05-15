@@ -10,17 +10,65 @@
   bottom: 0;
 
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
 
   background: rgba(#000, 0.2);
 
-  form {
-    height: 200px;
-    width: 500px;
+  &-body {
+    position: relative;
+    padding: 20px;
+    height: auto;
+    width: 400px;
+
     border-radius: 5px;
 
     background: $dark41;
+  }
+
+  .title {
+    display: block;
+    margin: 0 0 10px;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  .x {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  form {
+    height: auto;
+    width: 100%;
+    margin-top: 20px;
+
+    .row {
+      width: 100%;
+      margin: 0 0 20px;
+
+      display: flex;
+      flex-flow: column nowrap;
+
+      &.submit {
+        margin-top: 40px;
+      }
+
+      label {
+        margin-bottom: 10px;
+      }
+
+      select,
+      input,
+      button {
+        width: 100%;
+      }
+    }
   }
 }
