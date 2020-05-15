@@ -1,5 +1,5 @@
 <template>
-    <div class="popup-form" v-show="data.show">
+    <div class="popup-form" v-show="data.show" @click="data.show = false">
         <div class="popup-form-body">
             <span class="x" @click="data.show = false">&times;</span>
             <span class="title">ADD RECORD</span>

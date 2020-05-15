@@ -13,7 +13,11 @@
                 </button>
 
                 <div class="pwlist" :class="getListMode()">
-                    <div class="category" v-for="category in categoriesWithRecords">
+                    <div
+                        class="category"
+                        v-for="(category,idx) in categoriesWithRecords"
+                        :key="idx"
+                    >
                         <div class="head">
                             <div class="head-title">
                                 <span class="title">{{category.label.toUpperCase()}}</span>
@@ -22,7 +26,16 @@
                             <div class="head-actions">
                                 <span>SORT BY</span>
                                 <div class="select-wrapper">DEFAULT</div>
-                                <div class="line"></div>
+                                <div class="sort-line">
+                                    <div class="wrapper">
+                                        <button>
+                                            <span></span>
+                                        </button>
+                                        <button>
+                                            <span></span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="record-items">
@@ -30,7 +43,12 @@
                                 <span>+</span>
                             </button>
 
-                            <div class="record" v-for="record, idx in category.records" :key="idx">
+                            <div
+                                class="record"
+                                :title="`View details from ${record.label}`"
+                                v-for="(record, idx) in category.records"
+                                :key="idx"
+                            >
                                 <span>{{record.label}}</span>
                             </div>
                             <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
@@ -46,7 +64,16 @@
                             <div class="head-actions">
                                 <span>SORT BY</span>
                                 <div class="select-wrapper">DEFAULT</div>
-                                <div class="line"></div>
+                                <div class="sort-line">
+                                    <div class="wrapper">
+                                        <button>
+                                            <span></span>
+                                        </button>
+                                        <button>
+                                            <span></span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="record-items">
@@ -56,7 +83,8 @@
 
                             <div
                                 class="record"
-                                v-for="record, idx in uncategorizedRecords"
+                                :title="`View details from ${record.label}`"
+                                v-for="(record, idx) in uncategorizedRecords"
                                 :key="idx"
                             >{{record.label}}</div>
                             <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
@@ -259,104 +287,159 @@ export default Vue.extend({
     width: 100%;
     height: auto;
     margin-bottom: 20px;
+}
 
-    .head {
+.pwcontent > .pwlist > .category > .head {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    height: 20px;
+
+    .head-title {
+        height: 100%;
+        min-width: 140px;
+
         display: flex;
         flex-flow: row nowrap;
         justify-content: flex-start;
         align-items: center;
 
-        &-title {
-            min-width: 140px;
+        flex: 1 0 auto;
 
-            display: flex;
-            flex-flow: row nowrap;
-            justify-content: flex-start;
-            align-items: center;
-
-            flex: 1 0 auto;
-
-            span {
-                display: inline-block;
-                letter-spacing: 2px;
-                font-size: 18px;
-                width: auto;
-                height: auto;
-                flex: 0 0 auto;
-            }
-
-            .cnt {
-                margin: 0 20px 0 5px;
-                font-size: 16px;
-                color: $secondarytxt;
-            }
+        span {
+            display: inline-block;
+            letter-spacing: 2px;
+            font-size: 18px;
+            width: auto;
+            height: auto;
+            flex: 0 0 auto;
         }
 
-        &-actions {
-            display: flex;
-            flex-flow: row nowrap;
-            justify-content: flex-start;
-            align-items: center;
-
-            flex: 1 1 auto;
-            width: 100%;
-
-            > span {
-                color: $secondarytxt;
-                white-space: nowrap;
-            }
-
-            > .select-wrapper {
-                margin-left: 10px;
-                color: $secondarytxt;
-
-                background: $dark41;
-                border-radius: 5px;
-                font-size: 14px;
-                text-align: center;
-                padding: 2px 10px;
-
-                cursor: pointer;
-            }
-
-            > .line {
-                flex: 1 1 auto;
-                width: 100%;
-                height: 0px;
-                border-bottom: 2px solid $dark31;
-                margin-left: 10px;
-            }
+        .cnt {
+            margin: 0 20px 0 5px;
+            font-size: 16px;
+            color: $secondarytxt;
         }
     }
 
-    .record-items {
-        margin-top: 10px;
-        width: 100%;
-        height: auto;
+    .head-actions {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: center;
 
-        .add-record {
-            font-size: 24px;
-            font-weight: 300;
+        flex: 1 1 auto;
+        width: 100%;
+        height: 100%;
+
+        > span {
+            color: $secondarytxt;
+            white-space: nowrap;
         }
 
-        .record {
+        > .select-wrapper {
+            margin-left: 10px;
+            color: $secondarytxt;
+
+            background: $dark41;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+            padding: 2px 10px;
+
+            cursor: pointer;
+        }
+
+        > .sort-line {
+            flex: 1 1 auto;
+            width: 100%;
+            height: 100%;
+            margin-left: 10px;
+
             display: flex;
-            flex-flow: row wrap;
-            justify-content: center;
             align-items: center;
+            transition: 200ms ease;
             cursor: pointer;
 
-            border-radius: 3px;
-            background: $dark41;
-
-            span {
-                font-size: 18px;
-            }
-
             &:hover {
-                transition: 200ms;
-                background: lighten($dark41, 10);
+                > .wrapper,
+                > .wrapper > button,
+                > .wrapper > button > span {
+                    height: 100%;
+                }
             }
+
+            .wrapper {
+                width: 100%;
+                height: 0;
+                display: flex;
+                justify-content: space-between;
+                transition: 300ms;
+
+                button {
+                    flex: 1 1 auto;
+                    width: 50%;
+                    margin: 0 2px;
+                    height: 2px;
+                    background: $dark52;
+                    overflow: hidden;
+                    font-size: 10px;
+                    transition: 300ms;
+                    padding: 0px;
+
+                    span {
+                        display: block;
+                        height: 0%;
+                        width: 100%;
+                    }
+                }
+
+                button:first-child > span {
+                    background-image: url("~assets/icons/sort-up.svg");
+                    background-position: center center;
+                    background-size: 16px 16px;
+                    background-repeat: no-repeat;
+                }
+
+                button:last-child > span {
+                    background-image: url("~assets/icons/sort-down.svg");
+                    background-position: center center;
+                    background-size: 16px 16px;
+                    background-repeat: no-repeat;
+                }
+            }
+        }
+    }
+}
+
+.pwcontent > .pwlist > .category > .record-items {
+    margin-top: 10px;
+    width: 100%;
+    height: auto;
+
+    .add-record {
+        font-size: 24px;
+        font-weight: 300;
+    }
+
+    .record {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        border-radius: 3px;
+        background: $dark41;
+
+        span {
+            font-size: 18px;
+        }
+
+        &:hover {
+            transition: 200ms;
+            background: lighten($dark41, 10);
         }
     }
 }
