@@ -163,9 +163,6 @@ export default Vue.extend({
             margin: 10px;
             height: 60px;
             width: 20%;
-
-            background: $dark41;
-            border-radius: 3px;
         }
 
         .hidden {
@@ -187,10 +184,8 @@ export default Vue.extend({
             flex: 0 0 auto;
             margin: 10px;
             height: 60px;
-            border-radius: 3px;
-            width: 100%;
 
-            background: $dark41;
+            width: 100%;
         }
 
         .hidden {
@@ -305,13 +300,16 @@ export default Vue.extend({
             align-items: center;
             cursor: pointer;
 
+            border-radius: 3px;
+            background: $dark41;
+
             span {
                 font-size: 18px;
             }
 
             &:hover {
                 transition: 200ms;
-                background: rgba($accent1, 0.5);
+                background: lighten($dark41, 10);
             }
         }
     }
