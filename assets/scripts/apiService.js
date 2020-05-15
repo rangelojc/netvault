@@ -15,5 +15,13 @@ export const pwApi = {
     getRecords: async (userId) => {
         const res = await axios.get("/api/pwm/records/" + userId);
         return response(res.data);
+    },
+    addRecord: async (data) => {
+        const res = await axios.post("/api/pwm/records/add", data);
+        return response(res.data);
+    },
+    addCategory: async (data) => {
+        const res = await axios.post("/api/pwm/categories/add", data);
+        return response(res.data);
     }
 }
