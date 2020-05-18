@@ -1,7 +1,7 @@
 <template>
     <div class="app">
         <div class="app-left">
-            <Sidebar :page="$route.name" />
+            <Sidebar :path="$route.path" :page="$route.name.split('-')[0]" />
         </div>
 
         <div class="app-right">
