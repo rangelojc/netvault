@@ -1,21 +1,24 @@
 <template>
-    <div>Hello</div>
+    <div>{{record.label}}</div>
 </template>
 
-
 <script>
-export default {
+import Vue from "vue";
+import { mapState, mapGetters } from "vuex";
+
+export default Vue.extend({
+    layout: "main",
     data() {
         return {
-            recordId: 0
+            record: {}
         };
     },
-    mounted() {
-        this.data.recordId = this.$route.params.recordId;
+    created() {
+        const recordId = this.$route.params.recordId;
+        this.record = this.$store.getters["pwmanager/recordById"](recordId);
     }
-};
+});
 </script>
-
 
 <style lang="scss" scoped>
 </style>

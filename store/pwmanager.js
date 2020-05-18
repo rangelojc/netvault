@@ -31,9 +31,13 @@ export const actions = {
         context.commit("records", payload[1].data);
         context.commit("categoriesWithRecords");
         context.commit("uncategorizedRecords");
-    }
+    },
 }
 
 export const getters = {
-
+    recordById: state => {
+        return recordId => {
+            return state.records.find(r => r.recordId === recordId * 1)
+        }
+    }
 }

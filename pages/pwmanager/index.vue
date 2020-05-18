@@ -48,6 +48,7 @@
                                 :title="`View details from ${record.label}`"
                                 v-for="(record, idx) in category.records"
                                 :key="idx"
+                                @click="viewRecord(record.recordId)"
                             >
                                 <span>{{record.label}}</span>
                             </div>
@@ -132,24 +133,20 @@ export default Vue.extend({
         return DATA_MODEL;
     },
     methods: {
+        //get
         getListMode() {
             return {
                 grid: this.listMode === "grid",
                 list: this.listMode === "list"
             };
         },
-        getData() {
-            const userId = localStorage.NETVAULT_USERID;
-            const getarry = [
-                pwApi.getCategories(userId),
-                pwApi.getRecords(userId)
-            ];
 
-            Promise.all(getarry).then(responses => {
-                this.$store.dispatch("pwmanager/update", responses);
-            });
+        //view
+        viewRecord(recordId) {
+            this.$router.push("pwmanager/view/" + recordId);
         },
 
+        //crud
         addRecord(categoryId) {
             const record = { categoryId };
 
@@ -163,8 +160,13 @@ export default Vue.extend({
             this.forms.addCategory.show = true;
         }
     },
-    mounted() {
-        this.getData();
+    async fetch() {
+        const userId = localStorage.NETVAULT_USERID;
+        const getarry = [pwApi.getCategories(userId), pwApi.getRecords(userId)];
+
+        Promise.all(getarry).then(responses => {
+            this.$store.dispatch("pwmanager/update", responses);
+        });
     }
 });
 </script>
