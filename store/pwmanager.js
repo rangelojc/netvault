@@ -39,5 +39,10 @@ export const getters = {
         return recordId => {
             return state.records.find(r => r.recordId === recordId * 1)
         }
-    }
+    },
+    categoryById: state => {
+        return categoryId => {
+            return state.categories.find(r => r.categoryId === categoryId * 1)
+        }
+    },
 }
