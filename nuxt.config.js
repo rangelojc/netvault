@@ -26,7 +26,8 @@ module.exports = {
     */
     css: [
         '@/assets/scss/main.scss',
-        '@/assets/scss/shared.scss'
+        '@/assets/scss/shared.scss',
+        '@/assets/scss/icons.scss',
     ],
     /*
     ** Plugins to load before mounting the App
