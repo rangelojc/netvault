@@ -27,6 +27,9 @@ export const mutations = {
     //insert
     addCategory(state, category) {
         state.categories.push(category);
+    },
+    addRecord(state, record) {
+        state.records.push(record);
     }
 }
 
@@ -39,6 +42,13 @@ export const actions = {
     },
     addCategory(context, payload) {
         context.commit("addCategory", payload);
+
+        //re-create filtered state
+        context.commit("categoriesWithRecords");
+        context.commit("uncategorizedRecords");
+    },
+    addRecord(context, payload) {
+        context.commit("addRecord", payload);
 
         //re-create filtered state
         context.commit("categoriesWithRecords");

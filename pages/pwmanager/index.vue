@@ -114,7 +114,7 @@ import Loader from "~/components/Loader";
 const DATA_MODEL = {
     listMode: "grid",
     forms: {
-        addRecord: { show: false },
+        addRecord: { show: false, category: {} },
         addCategory: { show: false }
     },
     loader: false
@@ -156,13 +156,18 @@ export default Vue.extend({
 
         //crud
         addRecord(categoryId) {
-            const record = { categoryId };
-
             this.forms.addRecord.show = true;
-            this.forms.addRecord.record = record;
-            this.forms.addRecord.label = this.categoriesWithRecords.find(
-                c => c.categoryId === categoryId
-            ).label;
+
+            if (categoryId) {
+                this.forms.addRecord.category = this.$store.getters[
+                    "pwmanager/categoryById"
+                ](categoryId);
+            } else {
+                this.forms.addRecord.category = {
+                    categoryId: null,
+                    label: "Uncategorized"
+                };
+            }
         },
         addCategory() {
             this.forms.addCategory.show = true;

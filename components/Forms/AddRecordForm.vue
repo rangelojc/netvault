@@ -6,16 +6,14 @@
             <form action>
                 <div class="row">
                     <label for>Category</label>
-                    <select name id>
-                        <option value>{{ data.label }}</option>
-                    </select>
+                    <input type="text" :value="data.category.label" readonly />
                 </div>
                 <div class="row">
                     <label for>Label</label>
-                    <input type="text" />
+                    <input type="text" v-model="label" />
                 </div>
                 <div class="row submit">
-                    <button type="submit">SUBMIT</button>
+                    <button type="submit" @click="addRecord">SUBMIT</button>
                 </div>
             </form>
         </div>
@@ -25,9 +23,35 @@
 
 <script>
 import Vue from "vue";
+import { pwApi } from "~/assets/scripts/apiService";
 
 export default Vue.extend({
-    props: ["data"]
+    props: ["data"],
+    data() {
+        return {
+            label: ""
+        };
+    },
+    methods: {
+        addRecord(evt) {
+            evt.preventDefault();
+
+            const record = {};
+            record.userId = localStorage.NETVAULT_USERID;
+            record.categoryId = this.$props.data.category.categoryId;
+            record.label = this.label;
+
+            this.$emit("toggleLoader", true);
+
+            pwApi.addRecord(record).then(res => {
+                this.$props.data.show = false;
+                this.$emit("toggleLoader", false);
+                record.recordId = res.data.insertId;
+
+                this.$store.dispatch("pwmanager/addRecord", record);
+            });
+        }
+    }
 });
 </script>
 
