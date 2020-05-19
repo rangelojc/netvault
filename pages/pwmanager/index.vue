@@ -95,8 +95,9 @@
             </div>
         </div>
 
-        <AddRecordForm :data="forms.addRecord" />
-        <AddCategoryForm :data="forms.addCategory" />
+        <AddRecordForm :data="forms.addRecord" @toggleLoader="toggleLoader" />
+        <AddCategoryForm :data="forms.addCategory" @toggleLoader="toggleLoader" />
+        <Loader :show="loader" />
     </div>
 </template>
 
@@ -108,19 +109,22 @@ import { pwApi } from "~/assets/scripts/apiService";
 
 import AddRecordForm from "~/components/Forms/AddRecordForm";
 import AddCategoryForm from "~/components/Forms/AddCategoryForm";
+import Loader from "~/components/Loader";
 
 const DATA_MODEL = {
     listMode: "grid",
     forms: {
         addRecord: { show: false },
         addCategory: { show: false }
-    }
+    },
+    loader: false
 };
 
 export default Vue.extend({
     components: {
         AddRecordForm,
-        AddCategoryForm
+        AddCategoryForm,
+        Loader
     },
     layout: "main",
     computed: {
@@ -133,6 +137,10 @@ export default Vue.extend({
         return DATA_MODEL;
     },
     methods: {
+        toggleLoader(bool) {
+            this.loader = bool;
+        },
+
         //get
         getListMode() {
             return {
@@ -165,7 +173,7 @@ export default Vue.extend({
         const getarry = [pwApi.getCategories(userId), pwApi.getRecords(userId)];
 
         Promise.all(getarry).then(responses => {
-            this.$store.dispatch("pwmanager/update", responses);
+            this.$store.dispatch("pwmanager/fill", responses);
         });
     }
 });

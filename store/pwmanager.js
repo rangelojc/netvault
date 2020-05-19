@@ -25,20 +25,20 @@ export const mutations = {
     },
 
     //insert
-    insertCategory(state, category) {
+    addCategory(state, category) {
         state.categories.push(category);
     }
 }
 
 export const actions = {
-    update(context, payload) {
+    fill(context, payload) {
         context.commit("categories", payload[0].data)
         context.commit("records", payload[1].data);
         context.commit("categoriesWithRecords");
         context.commit("uncategorizedRecords");
     },
-    insertCategory(context, payload) {
-        context.commit("insertCategory", payload);
+    addCategory(context, payload) {
+        context.commit("addCategory", payload);
 
         //re-create filtered state
         context.commit("categoriesWithRecords");

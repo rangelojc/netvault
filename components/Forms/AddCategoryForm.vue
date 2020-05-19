@@ -23,7 +23,7 @@ import Vue from "vue";
 import { pwApi } from "~/assets/scripts/apiService";
 
 export default Vue.extend({
-    props: ["data"],
+    props: ["data", "loader"],
     data() {
         return {
             label: ""
@@ -35,11 +35,14 @@ export default Vue.extend({
             const userId = localStorage.NETVAULT_USERID;
             const category = { userId, label: this.label };
 
+            this.$emit("toggleLoader", true);
+
             pwApi.addCategory(category).then(res => {
                 this.$props.data.show = false;
+                this.$emit("toggleLoader", false);
                 category.categoryId = res.data.insertId;
 
-                this.$store.dispatch("pwmanager/insertCategory", category);
+                this.$store.dispatch("pwmanager/addCategory", category);
             });
         }
     }
