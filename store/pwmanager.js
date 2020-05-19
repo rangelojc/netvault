@@ -21,7 +21,7 @@ export const mutations = {
         state.categoriesWithRecords = categories;
     },
     uncategorizedRecords(state) {
-        state.uncategorizedRecords = [].concat(state.records).filter(r => r.categoryId === null);
+        state.uncategorizedRecords = [].concat(state.records).filter(r => !r.categoryId);
     }
 }
 

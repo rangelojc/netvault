@@ -31,7 +31,7 @@ module.exports = class {
 
     async getRecordData() {
         const result = await this.sqlmanager.exec(
-            "SELECT * FROM pw_records_data WHERE recordId = ?", [params.recordId]
+            "SELECT * FROM pw_records_data WHERE recordId = ? AND userId = ?", [params.recordId, params.userId]
         );
 
         return new response.APIResponse(result);

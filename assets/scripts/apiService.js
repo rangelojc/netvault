@@ -16,6 +16,10 @@ export const pwApi = {
         const res = await axios.get("/api/pwm/records/" + userId);
         return response(res.data);
     },
+    getRecordData: async (data) => {
+        const res = await axios.post("/api/pwm/records/view", data);
+        return response(res.data);
+    },
     addRecord: async (data) => {
         const res = await axios.post("/api/pwm/records/add", data);
         return response(res.data);
