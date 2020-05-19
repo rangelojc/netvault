@@ -41,4 +41,13 @@ router.post('/records/add', async (req, res, next) => {
     res.send(result);
 });
 
+//record data
+router.get('/records/view/:recordId', async (req, res, next) => {
+    const sqlmanager = req.app.locals.sqlmanager;
+    const controller = new PWController(sqlmanager);
+
+    const result = await controller.getRecordData(req.params);
+    res.send(result);
+});
+
 module.exports = router;

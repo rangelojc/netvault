@@ -28,4 +28,12 @@ module.exports = class {
 
         return new response.APIResponse(result);
     }
+
+    async getRecordData() {
+        const result = await this.sqlmanager.exec(
+            "SELECT * FROM pw_records_data WHERE recordId = ?", [params.recordId]
+        );
+
+        return new response.APIResponse(result);
+    }
 }
