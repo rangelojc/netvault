@@ -22,6 +22,11 @@ export const mutations = {
     },
     uncategorizedRecords(state) {
         state.uncategorizedRecords = [].concat(state.records).filter(r => !r.categoryId);
+    },
+
+    //insert
+    insertCategory(state, category) {
+        state.categories.push(category);
     }
 }
 
@@ -32,6 +37,13 @@ export const actions = {
         context.commit("categoriesWithRecords");
         context.commit("uncategorizedRecords");
     },
+    insertCategory(context, payload) {
+        context.commit("insertCategory", payload);
+
+        //re-create filtered state
+        context.commit("categoriesWithRecords");
+        context.commit("uncategorizedRecords");
+    }
 }
 
 export const getters = {

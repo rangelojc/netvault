@@ -6,10 +6,10 @@
             <form action>
                 <div class="row">
                     <label for>Label</label>
-                    <input type="text" />
+                    <input type="text" v-model="label" />
                 </div>
                 <div class="row submit">
-                    <button type="submit">SUBMIT</button>
+                    <button type="submit" @click="addCategory">SUBMIT</button>
                 </div>
             </form>
         </div>
@@ -20,8 +20,29 @@
 <script>
 import Vue from "vue";
 
+import { pwApi } from "~/assets/scripts/apiService";
+
 export default Vue.extend({
-    props: ["data"]
+    props: ["data"],
+    data() {
+        return {
+            label: ""
+        };
+    },
+    methods: {
+        addCategory(evt) {
+            evt.preventDefault();
+            const userId = localStorage.NETVAULT_USERID;
+            const category = { userId, label: this.label };
+
+            pwApi.addCategory(category).then(res => {
+                this.$props.data.show = false;
+                category.categoryId = res.data.insertId;
+
+                this.$store.dispatch("pwmanager/insertCategory", category);
+            });
+        }
+    }
 });
 </script>
 

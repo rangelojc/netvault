@@ -3,7 +3,8 @@ import axios from "axios";
 function response(data) {
     if (data.status == "OK") return data;
     else {
-        console.error("Something went wrong with the API service: ", data);
+        const err = new Error("Something went wrong with the API service: ");
+        console.error(err, data);
     }
 }
 

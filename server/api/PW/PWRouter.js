@@ -14,7 +14,6 @@ router.get('/categories/:userId', async (req, res, next) => {
     res.send(result);
 });
 
-
 router.post('/categories/add', async (req, res, next) => {
     const sqlmanager = req.app.locals.sqlmanager;
     const controller = new PWController(sqlmanager);
