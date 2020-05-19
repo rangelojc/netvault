@@ -29,10 +29,10 @@
                                 <div class="sort-line">
                                     <div class="wrapper">
                                         <button>
-                                            <span></span>
+                                            <span class="icon sort-up"></span>
                                         </button>
                                         <button>
-                                            <span></span>
+                                            <span class="icon sort-down"></span>
                                         </button>
                                     </div>
                                 </div>
@@ -68,10 +68,10 @@
                                 <div class="sort-line">
                                     <div class="wrapper">
                                         <button>
-                                            <span></span>
+                                            <span class="icon sort-up"></span>
                                         </button>
                                         <button>
-                                            <span></span>
+                                            <span class="icon sort-down"></span>
                                         </button>
                                     </div>
                                 </div>
@@ -389,26 +389,6 @@ export default Vue.extend({
                     font-size: 10px;
                     transition: 300ms;
                     padding: 0px;
-
-                    span {
-                        display: block;
-                        height: 0%;
-                        width: 100%;
-                    }
-                }
-
-                button:first-child > span {
-                    background-image: url("~assets/icons/sort-up.svg");
-                    background-position: center center;
-                    background-size: 16px 16px;
-                    background-repeat: no-repeat;
-                }
-
-                button:last-child > span {
-                    background-image: url("~assets/icons/sort-down.svg");
-                    background-position: center center;
-                    background-size: 16px 16px;
-                    background-repeat: no-repeat;
                 }
             }
         }
