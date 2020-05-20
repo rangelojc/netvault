@@ -1,3 +1,5 @@
+const NOCATEGORY_MODEL = { label: "Uncategorized", categoryId: null };
+
 export const state = () => ({
     categories: [],
     records: [],
@@ -18,10 +20,11 @@ export const mutations = {
             c.records = state.records.filter(r => r.categoryId === c.categoryId);
         });
 
+        const nocategory = Object.assign({}, NOCATEGORY_MODEL);
+        nocategory.records = [].concat(state.records).filter(r => !r.categoryId);
+        categories.push(nocategory);
+
         state.categoriesWithRecords = categories;
-    },
-    uncategorizedRecords(state) {
-        state.uncategorizedRecords = [].concat(state.records).filter(r => !r.categoryId);
     },
 
     //insert
@@ -38,21 +41,18 @@ export const actions = {
         context.commit("categories", payload[0].data)
         context.commit("records", payload[1].data);
         context.commit("categoriesWithRecords");
-        context.commit("uncategorizedRecords");
     },
     addCategory(context, payload) {
         context.commit("addCategory", payload);
 
         //re-create filtered state
         context.commit("categoriesWithRecords");
-        context.commit("uncategorizedRecords");
     },
     addRecord(context, payload) {
         context.commit("addRecord", payload);
 
         //re-create filtered state
         context.commit("categoriesWithRecords");
-        context.commit("uncategorizedRecords");
     }
 }
 
@@ -64,7 +64,10 @@ export const getters = {
     },
     categoryById: state => {
         return categoryId => {
-            return state.categories.find(r => r.categoryId === categoryId * 1)
+            if (categoryId)
+                return state.categories.find(r => r.categoryId === categoryId * 1)
+            else
+                return NOCATEGORY_MODEL;
         }
     },
 }

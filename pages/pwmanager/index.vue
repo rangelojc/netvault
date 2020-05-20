@@ -55,42 +55,6 @@
                             <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
                         </div>
                     </div>
-
-                    <div class="category">
-                        <div class="head">
-                            <div class="head-title">
-                                <span class="title">UNCATEGORIZED</span>
-                                <span class="cnt">{{`(${uncategorizedRecords.length})`}}</span>
-                            </div>
-                            <div class="head-actions">
-                                <span>SORT BY</span>
-                                <div class="select-wrapper">DEFAULT</div>
-                                <div class="sort-line">
-                                    <div class="wrapper">
-                                        <button>
-                                            <span class="icon sort-up"></span>
-                                        </button>
-                                        <button>
-                                            <span class="icon sort-down"></span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="record-items">
-                            <button class="add-record" @click="addRecord(null)">
-                                <span>+</span>
-                            </button>
-
-                            <div
-                                class="record"
-                                :title="`View details from ${record.label}`"
-                                v-for="(record, idx) in uncategorizedRecords"
-                                :key="idx"
-                            >{{record.label}}</div>
-                            <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -129,8 +93,7 @@ export default Vue.extend({
     layout: "main",
     computed: {
         ...mapState("pwmanager", {
-            categoriesWithRecords: state => state.categoriesWithRecords,
-            uncategorizedRecords: state => state.uncategorizedRecords
+            categoriesWithRecords: state => state.categoriesWithRecords
         })
     },
     data() {
@@ -157,6 +120,8 @@ export default Vue.extend({
         //crud
         addRecord(categoryId) {
             this.forms.addRecord.show = true;
+
+            console.log(categoryId);
 
             if (categoryId) {
                 this.forms.addRecord.category = this.$store.getters[
