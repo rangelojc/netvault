@@ -415,6 +415,7 @@ export default Vue.extend({
 
         span {
             font-size: 18px;
+            pointer-events: none;
         }
 
         .x {
