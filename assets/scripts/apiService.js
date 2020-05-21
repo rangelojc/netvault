@@ -25,6 +25,10 @@ export const pwApi = {
         const res = await axios.post("/api/pwm/records/add", data);
         return response(res.data);
     },
+    deleteRecord: async (data) => {
+        const res = await axios.post("/api/pwm/records/delete", data);
+        return response(res.data);
+    },
     addCategory: async (data) => {
         const res = await axios.post("/api/pwm/categories/add", data);
         return response(res.data);

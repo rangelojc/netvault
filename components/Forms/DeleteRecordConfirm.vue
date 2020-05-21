@@ -36,22 +36,20 @@ export default Vue.extend({
         return {};
     },
     methods: {
-        addCategory(evt) {
+        deleteRecord(evt) {
             evt.preventDefault();
-            const userId = localStorage.NETVAULT_USERID;
-            const category = { userId, label: this.label };
+            const userId = localStorage.NETVAULT_USERID * 1;
+            const recordId = this.$props.data.record.recordId;
 
             this.$emit("toggleLoader", true);
 
-            pwApi.addCategory(category).then(res => {
+            pwApi.deleteRecord({ userId, recordId }).then(res => {
                 this.$props.data.show = false;
                 this.$emit("toggleLoader", false);
-                category.categoryId = res.data.insertId;
 
-                this.$store.dispatch("pwmanager/addCategory", category);
+                this.$store.dispatch("pwmanager/deleteRecord", recordId);
             });
-        },
-        deleteRecord() {}
+        }
     }
 });
 </script>

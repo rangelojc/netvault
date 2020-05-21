@@ -40,6 +40,14 @@ router.post('/records/add', async (req, res, next) => {
     res.send(result);
 });
 
+router.post('/records/delete', async (req, res, next) => {
+    const sqlmanager = req.app.locals.sqlmanager;
+    const controller = new PWController(sqlmanager);
+
+    const result = await controller.deleteRecord(req.body);
+    res.send(result);
+});
+
 //record data
 router.get('/records/view/:recordId', async (req, res, next) => {
     const sqlmanager = req.app.locals.sqlmanager;

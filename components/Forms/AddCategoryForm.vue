@@ -32,7 +32,7 @@ export default Vue.extend({
     methods: {
         addCategory(evt) {
             evt.preventDefault();
-            const userId = localStorage.NETVAULT_USERID;
+            const userId = localStorage.NETVAULT_USERID * 1;
             const category = { userId, label: this.label };
 
             this.$emit("toggleLoader", true);

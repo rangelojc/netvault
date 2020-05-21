@@ -20,6 +20,14 @@ module.exports = class {
         return new response.APIResponse(result);
     }
 
+    async getRecordData() {
+        const result = await this.sqlmanager.exec(
+            "SELECT * FROM pw_records_data WHERE recordId = ? AND userId = ?", [params.recordId, params.userId]
+        );
+
+        return new response.APIResponse(result);
+    }
+
     async addCategory(params) {
         const result = await this.sqlmanager.exec(
             "INSERT INTO pw_categories SET ?",
@@ -39,10 +47,19 @@ module.exports = class {
         return new response.APIResponse(result);
     }
 
-
-    async getRecordData() {
+    async deleteRecord(params) {
         const result = await this.sqlmanager.exec(
-            "SELECT * FROM pw_records_data WHERE recordId = ? AND userId = ?", [params.recordId, params.userId]
+            "DELETE FROM pw_records WHERE recordId = ? AND userId = ?",
+            [params.recordId, params.userId]
+        );
+
+        return new response.APIResponse(result);
+    }
+
+    async deleteRecordDataByRecord(params) {
+        const result = await this.sqlmanager.exec(
+            "DELETE FROM pw_records_data WHERE recordId = ? AND userId = ?",
+            [params.recordId, params.userId]
         );
 
         return new response.APIResponse(result);
