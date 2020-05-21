@@ -4,7 +4,7 @@
             <div class="title">{{`${category.label}: ${record.label}`}}</div>
             <div class="actions">
                 <button @click="$router.push('/pwmanager')">
-                    <i class="icon back-arrow-accent"></i>
+                    <i class="icon back-arrow"></i>
                     <span>Back</span>
                 </button>
             </div>
@@ -58,8 +58,7 @@ export default Vue.extend({
             margin-left: auto;
 
             button {
-                background: transparent;
-                color: $accent2;
+                // background: transparent;
                 display: flex;
                 align-items: center;
 

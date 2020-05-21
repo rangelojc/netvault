@@ -5,7 +5,7 @@ export const state = () => ({
     records: [],
     categoriesWithRecords: [],
     uncategorizedRecords: []
-})
+});
 
 export const mutations = {
     categories(state, categories) {
