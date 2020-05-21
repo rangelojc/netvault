@@ -49,8 +49,9 @@
                                 :title="`View details from ${record.label}`"
                                 v-for="(record, idx) in category.records"
                                 :key="idx"
-                                @click="viewRecord(record.recordId)"
+                                @click.self="viewRecord(record.recordId)"
                             >
+                                <span class="x" @click="deleteRecord(record, category)">&times;</span>
                                 <span>{{record.label}}</span>
                             </div>
                             <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
@@ -62,6 +63,8 @@
 
         <AddRecordForm :data="forms.addRecord" @toggleLoader="toggleLoader" />
         <AddCategoryForm :data="forms.addCategory" @toggleLoader="toggleLoader" />
+        <DeleteRecordConfirm :data="forms.deleteRecord" @toggleLoader="toggleLoader" />
+
         <Loader :show="loader" />
     </div>
 </template>
@@ -74,13 +77,16 @@ import { pwApi } from "~/assets/scripts/apiService";
 
 import AddRecordForm from "~/components/Forms/AddRecordForm";
 import AddCategoryForm from "~/components/Forms/AddCategoryForm";
+import DeleteRecordConfirm from "~/components/Forms/DeleteRecordConfirm";
+
 import Loader from "~/components/Loader";
 
 const DATA_MODEL = {
     listMode: "grid",
     forms: {
         addRecord: { show: false, category: {} },
-        addCategory: { show: false }
+        addCategory: { show: false },
+        deleteRecord: { show: false, record: {}, category: {} }
     },
     loader: false
 };
@@ -89,6 +95,7 @@ export default Vue.extend({
     components: {
         AddRecordForm,
         AddCategoryForm,
+        DeleteRecordConfirm,
         Loader
     },
     layout: "main",
@@ -137,6 +144,11 @@ export default Vue.extend({
         },
         addCategory() {
             this.forms.addCategory.show = true;
+        },
+        deleteRecord(record, category) {
+            this.forms.deleteRecord.show = true;
+            this.forms.deleteRecord.record = record;
+            this.forms.deleteRecord.category = category;
         }
     },
     async fetch() {
@@ -399,14 +411,35 @@ export default Vue.extend({
 
         border-radius: 3px;
         background: $dark41;
+        position: relative;
 
         span {
             font-size: 18px;
         }
 
+        .x {
+            display: none;
+            position: absolute;
+            top: 0px;
+            right: 3px;
+            font-size: 20px;
+            text-align: center;
+            width: 20px;
+
+            transition: 200ms;
+
+            &:hover {
+                font-weight: bold;
+            }
+        }
+
         &:hover {
             transition: 200ms;
             background: lighten($dark41, 10);
+
+            .x {
+                display: inline-block;
+            }
         }
     }
 }
