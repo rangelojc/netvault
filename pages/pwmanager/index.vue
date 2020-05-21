@@ -20,6 +20,7 @@
                     >
                         <div class="head">
                             <div class="head-title">
+                                <i class="icon dropdown"></i>
                                 <span class="title">{{category.label.toUpperCase()}}</span>
                                 <span class="cnt">{{`(${category.records.length})`}}</span>
                             </div>
@@ -278,7 +279,7 @@ export default Vue.extend({
 
     .head-title {
         height: 100%;
-        min-width: 140px;
+        min-width: 200px;
 
         display: flex;
         flex-flow: row nowrap;
@@ -287,7 +288,13 @@ export default Vue.extend({
 
         flex: 1 0 auto;
 
-        span {
+        .dropdown {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .title,
+        .cnt {
             display: inline-block;
             letter-spacing: 2px;
             font-size: 18px;
