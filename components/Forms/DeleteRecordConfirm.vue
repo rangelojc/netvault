@@ -14,6 +14,7 @@
                         <span>
                             <strong>{{data.category.label}}</strong>
                         </span>
+                        <span>?</span>
                     </div>
                 </div>
                 <div class="row submit">
