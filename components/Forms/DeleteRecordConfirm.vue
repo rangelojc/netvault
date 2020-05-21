@@ -1,5 +1,5 @@
 <template>
-    <div class="popup-form" v-show="data.show" @click.self="data.show = false">
+    <div class="popup-form" v-show="show" @click.self="data.show = false">
         <div class="popup-form-body">
             <span class="x" @click="data.show = false">&times;</span>
             <span class="title">DELETE RECORD</span>
@@ -17,7 +17,12 @@
                     </div>
                 </div>
                 <div class="row submit">
-                    <button type="submit" @click="deleteRecord">CONFIRM</button>
+                    <button
+                        type="submit"
+                        v-if="submitSecondsLeft !== 0"
+                        disabled
+                    >{{`CONFIRM (${submitSecondsLeft})`}}</button>
+                    <button type="submit" v-else @click="deleteRecord">{{`CONFIRM`}}</button>
                 </div>
             </form>
         </div>
@@ -33,7 +38,19 @@ import { pwApi } from "~/assets/scripts/apiService";
 export default Vue.extend({
     props: ["data", "loader"],
     data() {
-        return {};
+        return {
+            submitSecondsLeft: 3
+        };
+    },
+    computed: {
+        show() {
+            if (this.$props.data.show) {
+                this.submitSecondsLeft = 3;
+                this.timer();
+            }
+
+            return this.$props.data.show;
+        }
     },
     methods: {
         deleteRecord(evt) {
@@ -49,6 +66,12 @@ export default Vue.extend({
 
                 this.$store.dispatch("pwmanager/deleteRecord", recordId);
             });
+        },
+        timer() {
+            setTimeout(() => {
+                this.submitSecondsLeft--;
+                if (this.submitSecondsLeft) this.timer();
+            }, 1000);
         }
     }
 });
