@@ -37,7 +37,7 @@ export default Vue.extend({
             evt.preventDefault();
 
             const record = {};
-            record.userId = localStorage.NETVAULT_USERID;
+            record.userId = localStorage.NETVAULT_USERID * 1;
             record.categoryId = this.$props.data.category.categoryId;
             record.label = this.label;
 
