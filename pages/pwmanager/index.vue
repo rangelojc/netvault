@@ -400,6 +400,11 @@ export default Vue.extend({
     .add-record {
         font-size: 24px;
         font-weight: 300;
+        transition: 200ms;
+
+        &:hover {
+            background: lighten($accent2, 10%);
+        }
     }
 
     .record {
