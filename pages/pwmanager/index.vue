@@ -53,7 +53,7 @@
                                 @click.self="viewRecord(record.recordId)"
                             >
                                 <span class="x" @click="deleteRecord(record, category)">&times;</span>
-                                <span>{{record.label}}</span>
+                                <span class="label">{{record.label}}</span>
                             </div>
                             <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
                         </div>
@@ -420,7 +420,7 @@ export default Vue.extend({
         background: $dark41;
         position: relative;
 
-        span {
+        .label {
             font-size: 18px;
             pointer-events: none;
         }
