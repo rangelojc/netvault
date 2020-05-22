@@ -104,7 +104,11 @@ export default Vue.extend({
     layout: "main",
     computed: {
         ...mapState("pwmanager", {
-            categoriesWithRecords: state => state.categoriesWithRecords
+            categoriesWithRecords: state => {
+                const arr = [].concat(state.categoriesWithRecords);
+                arr.forEach(i => (i.showMenu = true));
+                return arr;
+            }
         })
     },
     data() {
@@ -134,8 +138,6 @@ export default Vue.extend({
         //crud
         addRecord(categoryId) {
             this.forms.addRecord.show = true;
-
-            console.log(categoryId);
 
             if (categoryId) {
                 this.forms.addRecord.category = this.$store.getters[

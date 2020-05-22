@@ -1,5 +1,5 @@
 <template>
-    <div class="category-menu" v-show="category.showMenu">
+    <div class="category-menu" v-show="show">
         <ul>
             <li>RENAME CATEGORY</li>
             <li>DELETE CATEGORY</li>
@@ -10,12 +10,29 @@
 <script>
 export default {
     props: ["category"],
+    computed: {
+        show() {
+            return this.$props.category.showMenu;
+        }
+    },
     methods: {}
 };
 </script>
 
 <style lang="scss" scoped>
 @import "~/assets/scss/vars.scss";
+
+@keyframes down {
+    from {
+        top: 20px;
+        opacity: 0;
+    }
+
+    to {
+        top: 30px;
+        opacity: 1;
+    }
+}
 
 .category-menu {
     position: absolute;
@@ -25,6 +42,8 @@ export default {
     min-width: 250px;
     width: auto;
     height: auto;
+
+    animation: down 300ms ease;
 
     ul {
         height: 100%;
