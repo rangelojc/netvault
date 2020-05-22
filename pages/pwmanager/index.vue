@@ -20,7 +20,7 @@
                     >
                         <div class="head">
                             <div class="head-title">
-                                <i class="icon dropdown"></i>
+                                <i class="icon dropdown" @click="toggleCategoryMenu(category)"></i>
                                 <span class="title">{{category.label.toUpperCase()}}</span>
                                 <span class="cnt">{{`(${category.records.length})`}}</span>
                             </div>
@@ -38,6 +38,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <CategoryMenu :category="category" />
                         </div>
                         <div class="record-items">
                             <button class="add-record" @click="addRecord(category.categoryId)">
@@ -75,6 +76,7 @@ import { mapState } from "vuex";
 
 import { pwApi } from "~/assets/scripts/apiService";
 
+import CategoryMenu from "~/components/PWManager/CategoryMenu";
 import AddRecordForm from "~/components/Forms/AddRecordForm";
 import AddCategoryForm from "~/components/Forms/AddCategoryForm";
 import DeleteRecordConfirm from "~/components/Forms/DeleteRecordConfirm";
@@ -93,6 +95,7 @@ const DATA_MODEL = {
 
 export default Vue.extend({
     components: {
+        CategoryMenu,
         AddRecordForm,
         AddCategoryForm,
         DeleteRecordConfirm,
@@ -110,6 +113,9 @@ export default Vue.extend({
     methods: {
         toggleLoader(bool) {
             this.loader = bool;
+        },
+        toggleCategoryMenu(category) {
+            category.showMenu = category.showMenu ? false : true;
         },
 
         //get
@@ -288,6 +294,7 @@ export default Vue.extend({
     justify-content: flex-start;
     align-items: center;
     height: 20px;
+    position: relative;
 
     .head-title {
         height: 100%;
@@ -400,11 +407,6 @@ export default Vue.extend({
     .add-record {
         font-size: 24px;
         font-weight: 300;
-        transition: 200ms;
-
-        &:hover {
-            background: lighten($accent2, 10%);
-        }
     }
 
     .record {
