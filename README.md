@@ -1,6 +1,6 @@
 # netvault
 
-> nuxtjs personal admin app
+Personal admin app current in development using Nuxt.js, Express and MySQL
 
 ## Build Setup
 
