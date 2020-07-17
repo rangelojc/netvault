@@ -106,7 +106,7 @@ export default Vue.extend({
         ...mapState("pwmanager", {
             categoriesWithRecords: state => {
                 const arr = [].concat(state.categoriesWithRecords);
-                arr.forEach(i => (i.showMenu = true));
+                arr.forEach(i => (i.showMenu = false));
                 return arr;
             }
         })
@@ -119,6 +119,7 @@ export default Vue.extend({
             this.loader = bool;
         },
         toggleCategoryMenu(category) {
+            console.log(category.showMenu);
             category.showMenu = category.showMenu ? false : true;
         },
 
