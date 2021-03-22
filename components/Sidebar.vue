@@ -23,8 +23,8 @@ export default Vue.extend({
     components: {
         Navigation,
         Bookmarks,
-        Settings
-    }
+        Settings,
+    },
 });
 </script>
 
@@ -33,7 +33,7 @@ export default Vue.extend({
 
 .sidebar {
     height: 100%;
-    width: 300px;
+    width: 100%;
 
     background-color: $dark11;
 }

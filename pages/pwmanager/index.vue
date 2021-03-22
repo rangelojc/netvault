@@ -4,7 +4,11 @@
             <div class="pwhead">
                 <span class="title">PASSWORD MANAGER</span>
                 <div class="actions">
-                    <input class="inp-search" type="text" placeholder="Search..." />
+                    <input
+                        class="inp-search"
+                        type="text"
+                        placeholder="Search..."
+                    />
                 </div>
             </div>
             <div class="pwcontent">
@@ -15,14 +19,21 @@
                 <div class="pwlist" :class="getListMode()">
                     <div
                         class="category"
-                        v-for="(category,idx) in categoriesWithRecords"
+                        v-for="(category, idx) in categoriesWithRecords"
                         :key="idx"
                     >
                         <div class="head">
                             <div class="head-title">
-                                <i class="icon dropdown" @click="toggleCategoryMenu(category)"></i>
-                                <span class="title">{{category.label.toUpperCase()}}</span>
-                                <span class="cnt">{{`(${category.records.length})`}}</span>
+                                <i
+                                    class="icon dropdown"
+                                    @click="toggleCategoryMenu(category)"
+                                ></i>
+                                <span class="title">{{
+                                    category.label.toUpperCase()
+                                }}</span>
+                                <span class="cnt">{{
+                                    `(${category.records.length})`
+                                }}</span>
                             </div>
                             <div class="head-actions">
                                 <span>SORT BY</span>
@@ -41,7 +52,10 @@
                             <CategoryMenu :category="category" />
                         </div>
                         <div class="record-items">
-                            <button class="add-record" @click="addRecord(category.categoryId)">
+                            <button
+                                class="add-record"
+                                @click="addRecord(category.categoryId)"
+                            >
                                 <span>+</span>
                             </button>
 
@@ -52,10 +66,18 @@
                                 :key="idx"
                                 @click.self="viewRecord(record.recordId)"
                             >
-                                <span class="x" @click="deleteRecord(record, category)">&times;</span>
-                                <span class="label">{{record.label}}</span>
+                                <span
+                                    class="x"
+                                    @click="deleteRecord(record, category)"
+                                    >&times;</span
+                                >
+                                <span class="label">{{ record.label }}</span>
                             </div>
-                            <div class="hidden" :key="`item${item}`" v-for="item in 3"></div>
+                            <div
+                                class="hidden"
+                                :key="`item${item}`"
+                                v-for="item in 3"
+                            ></div>
                         </div>
                     </div>
                 </div>
@@ -63,8 +85,14 @@
         </div>
 
         <AddRecordForm :data="forms.addRecord" @toggleLoader="toggleLoader" />
-        <AddCategoryForm :data="forms.addCategory" @toggleLoader="toggleLoader" />
-        <DeleteRecordConfirm :data="forms.deleteRecord" @toggleLoader="toggleLoader" />
+        <AddCategoryForm
+            :data="forms.addCategory"
+            @toggleLoader="toggleLoader"
+        />
+        <DeleteRecordConfirm
+            :data="forms.deleteRecord"
+            @toggleLoader="toggleLoader"
+        />
 
         <Loader :show="loader" />
     </div>
@@ -88,9 +116,9 @@ const DATA_MODEL = {
     forms: {
         addRecord: { show: false, category: {} },
         addCategory: { show: false },
-        deleteRecord: { show: false, record: {}, category: {} }
+        deleteRecord: { show: false, record: {}, category: {} },
     },
-    loader: false
+    loader: false,
 };
 
 export default Vue.extend({
@@ -99,17 +127,17 @@ export default Vue.extend({
         AddRecordForm,
         AddCategoryForm,
         DeleteRecordConfirm,
-        Loader
+        Loader,
     },
     layout: "main",
     computed: {
         ...mapState("pwmanager", {
-            categoriesWithRecords: state => {
+            categoriesWithRecords: (state) => {
                 const arr = [].concat(state.categoriesWithRecords);
-                arr.forEach(i => (i.showMenu = false));
+                arr.forEach((i) => (i.showMenu = false));
                 return arr;
-            }
-        })
+            },
+        }),
     },
     data() {
         return DATA_MODEL;
@@ -119,7 +147,7 @@ export default Vue.extend({
             this.loader = bool;
         },
         toggleCategoryMenu(category) {
-            console.log(category.showMenu);
+            //console.log(category.showMenu);
             category.showMenu = category.showMenu ? false : true;
         },
 
@@ -127,7 +155,7 @@ export default Vue.extend({
         getListMode() {
             return {
                 grid: this.listMode === "grid",
-                list: this.listMode === "list"
+                list: this.listMode === "list",
             };
         },
 
@@ -147,7 +175,7 @@ export default Vue.extend({
             } else {
                 this.forms.addRecord.category = {
                     categoryId: null,
-                    label: "Uncategorized"
+                    label: "Uncategorized",
                 };
             }
         },
@@ -158,16 +186,16 @@ export default Vue.extend({
             this.forms.deleteRecord.show = true;
             this.forms.deleteRecord.record = record;
             this.forms.deleteRecord.category = category;
-        }
+        },
     },
     async fetch() {
         const userId = localStorage.NETVAULT_USERID;
         const getarry = [pwApi.getCategories(userId), pwApi.getRecords(userId)];
 
-        Promise.all(getarry).then(responses => {
+        Promise.all(getarry).then((responses) => {
             this.$store.dispatch("pwmanager/fill", responses);
         });
-    }
+    },
 });
 </script>
 
@@ -422,6 +450,12 @@ export default Vue.extend({
         border-radius: 3px;
         background: $dark41;
         position: relative;
+
+        padding: 0 20px 0;
+        /* white-space: nowrap; */
+        text-overflow: ellipsis;
+        overflow: hidden;
+        text-align: center;
 
         .label {
             font-size: 18px;

@@ -1,20 +1,39 @@
 <template>
-    <div class="login">
-        <div class="login-title">NETVAULT</div>
+    <div class="wrapper">
+        <div class="login">
+            <div class="login-title">NETVAULT</div>
 
-        <div class="login-error-msg">{{ error }}</div>
+            <div class="login-error-msg">{{ error }}</div>
 
-        <form class="login-form">
-            <label for>Username:</label>
-            <input ref="username" class="login-txt" type="text" placeholder maxlength="32" />
+            <form class="login-form">
+                <label for>Username:</label>
+                <input
+                    ref="username"
+                    class="login-txt"
+                    type="text"
+                    placeholder
+                    maxlength="32"
+                />
 
-            <div class="separator"></div>
+                <div class="separator"></div>
 
-            <label for>Password:</label>
-            <input ref="password" class="login-txt" type="password" placeholder maxlength="32" />
+                <label for>Password:</label>
+                <input
+                    ref="password"
+                    class="login-txt"
+                    type="password"
+                    placeholder
+                    maxlength="32"
+                />
 
-            <input class="submit-login" type="submit" value="Login" @click="login" />
-        </form>
+                <input
+                    class="submit-login"
+                    type="submit"
+                    value="Login"
+                    @click="login"
+                />
+            </form>
+        </div>
     </div>
 </template>
 
@@ -25,7 +44,7 @@ import axios from "axios";
 export default Vue.extend({
     data() {
         return {
-            error: ""
+            error: "",
         };
     },
     methods: {
@@ -34,7 +53,7 @@ export default Vue.extend({
 
             const params = {
                 username: this.$refs.username.value,
-                password: this.$refs.password.value
+                password: this.$refs.password.value,
             };
 
             const res = await axios.post("/api/auth/login", params);
@@ -52,34 +71,43 @@ export default Vue.extend({
             this.$refs.username.focus();
             this.$refs.username.value = "";
             this.$refs.password.value = "";
-        }
+        },
     },
     mounted() {
         console.log(this.$route.query);
-    }
+    },
 });
 </script>
 
 <style lang="scss" scoped>
 @import "~/assets/scss/vars.scss";
 
-.login {
+.wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
-    width: 100%;
-    flex: 0 0 auto;
-    position: absolute;
-    top: 0;
-    z-index: 9999;
+    width: 100vw;
+    background: rgb(73, 73, 73);
+}
+
+.login {
+    height: 80%;
+    width: 80%;
+    max-height: 768px;
+    max-width: 1366px;
+
     background: $dark31;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
     align-items: center;
-    align-content: center;
+    justify-content: center;
 
     &-title {
         font-size: 40px;
         letter-spacing: 3px;
+        //margin-top: 50px;
     }
 
     &-error-msg {
@@ -130,9 +158,9 @@ export default Vue.extend({
     .submit-login {
         border: none;
         border-radius: 50px;
-        height: 40px;
+        height: 60px;
         width: 100%;
-        margin-top: 30px;
+        margin-top: 50px;
         cursor: pointer;
         outline: none;
         background: $accent1;
