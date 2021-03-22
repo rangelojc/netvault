@@ -12,6 +12,14 @@ module.exports = class {
         return new response.APIResponse(result);
     }
 
+    async getRecordsByCategoryId(params) {
+        const result = await this.sqlmanager.exec(
+            "SELECT * FROM pw_records WHERE userId = ? AND categoryId", [params.userId, params.categoryId]
+        );
+
+        return new response.APIResponse(result);
+    }
+
     async getCategories(params) {
         const result = await this.sqlmanager.exec(
             "SELECT * FROM pw_categories WHERE userId = ?", [params.userId]
@@ -51,6 +59,15 @@ module.exports = class {
         const result = await this.sqlmanager.exec(
             "DELETE FROM pw_records WHERE recordId = ? AND userId = ?",
             [params.recordId, params.userId]
+        );
+
+        return new response.APIResponse(result);
+    }
+
+    async deleteCategory(params) {
+        const result = await this.sqlmanager.exec(
+            "DELETE FROM pw_categories WHERE categoryId = ? AND userId = ?",
+            [params.categoryId, params.userId]
         );
 
         return new response.APIResponse(result);

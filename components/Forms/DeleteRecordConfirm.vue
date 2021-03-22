@@ -79,11 +79,6 @@ export default Vue.extend({
             }, 1000);
         },
     },
-    watch: {
-        "data.show": function () {
-            this.label = "";
-        },
-    },
 });
 </script>
 

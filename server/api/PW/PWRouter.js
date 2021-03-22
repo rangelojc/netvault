@@ -22,6 +22,14 @@ router.post('/categories/add', async (req, res, next) => {
     res.send(result);
 });
 
+router.post('/categories/delete', async (req, res, next) => {
+    const sqlmanager = req.app.locals.sqlmanager;
+    const controller = new PWController(sqlmanager);
+
+    const result = await controller.deleteCategory(req.body);
+    res.send(result);
+});
+
 //records
 
 router.get('/records/:userId', async (req, res, next) => {

@@ -39,6 +39,10 @@ export const mutations = {
     deleteRecord(state, recordId) {
         const idx = state.records.findIndex(r => r.recordId === recordId)
         state.records.splice(idx, 1);
+    },
+    deleteCategory(state, categoryId) {
+        const idx = state.categories.findIndex(r => r.categoryId === categoryId)
+        state.records.splice(idx, 1);
     }
 }
 
@@ -62,6 +66,12 @@ export const actions = {
     },
     deleteRecord(context, payload) {
         context.commit("deleteRecord", payload);
+
+        //re-create filtered state
+        context.commit("categoriesWithRecords");
+    },
+    deleteCategory(context, payload) {
+        context.commit("deleteCategory", payload);
 
         //re-create filtered state
         context.commit("categoriesWithRecords");

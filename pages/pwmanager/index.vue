@@ -48,6 +48,12 @@
                                         </button>
                                     </div>
                                 </div>
+                                <button
+                                    class="btn-delete-category"
+                                    @click="deleteCategory(category)"
+                                >
+                                    <span>&times;</span>
+                                </button>
                             </div>
                             <CategoryMenu :category="category" />
                         </div>
@@ -93,6 +99,10 @@
             :data="forms.deleteRecord"
             @toggleLoader="toggleLoader"
         />
+        <DeleteCategoryConfirm
+            :data="forms.deleteCategory"
+            @toggleLoader="toggleLoader"
+        />
 
         <Loader :show="loader" />
     </div>
@@ -108,6 +118,7 @@ import CategoryMenu from "~/components/PWManager/CategoryMenu";
 import AddRecordForm from "~/components/Forms/AddRecordForm";
 import AddCategoryForm from "~/components/Forms/AddCategoryForm";
 import DeleteRecordConfirm from "~/components/Forms/DeleteRecordConfirm";
+import DeleteCategoryConfirm from "~/components/Forms/DeleteCategoryConfirm";
 
 import Loader from "~/components/Loader";
 
@@ -117,6 +128,7 @@ const DATA_MODEL = {
         addRecord: { show: false, category: {} },
         addCategory: { show: false },
         deleteRecord: { show: false, record: {}, category: {} },
+        deleteCategory: { show: false, category: {} },
     },
     loader: false,
 };
@@ -127,6 +139,7 @@ export default Vue.extend({
         AddRecordForm,
         AddCategoryForm,
         DeleteRecordConfirm,
+        DeleteCategoryConfirm,
         Loader,
     },
     layout: "main",
@@ -186,6 +199,10 @@ export default Vue.extend({
             this.forms.deleteRecord.show = true;
             this.forms.deleteRecord.record = record;
             this.forms.deleteRecord.category = category;
+        },
+        deleteCategory(category) {
+            this.forms.deleteCategory.show = true;
+            this.forms.deleteCategory.category = category;
         },
     },
     async fetch() {
@@ -425,6 +442,15 @@ export default Vue.extend({
                     transition: 300ms;
                     padding: 0px;
                 }
+            }
+        }
+
+        > .btn-delete-category {
+            background: none;
+            color: $dark62;
+
+            &:hover {
+                color: $active;
             }
         }
     }

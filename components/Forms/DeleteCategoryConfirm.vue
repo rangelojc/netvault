@@ -2,15 +2,11 @@
     <div class="popup-form" v-show="show" @click.self="data.show = false">
         <div class="popup-form-body">
             <span class="x" @click="data.show = false">&times;</span>
-            <span class="title">DELETE RECORD</span>
+            <span class="title">DELETE CATEGORY</span>
             <form action>
                 <div class="row">
                     <div class="center">
                         <span>Are you sure you want to delete</span>
-                        <span>
-                            <strong>{{ data.record.label }}</strong>
-                        </span>
-                        <span>from</span>
                         <span>
                             <strong>{{ data.category.label }}</strong>
                         </span>
@@ -25,7 +21,7 @@
                     >
                         {{ `CONFIRM (${submitSecondsLeft})` }}
                     </button>
-                    <button type="submit" v-else @click="deleteRecord">
+                    <button type="submit" v-else @click="deleteCategory">
                         {{ `CONFIRM` }}
                     </button>
                 </div>
@@ -58,8 +54,10 @@ export default Vue.extend({
         },
     },
     methods: {
-        deleteRecord(evt) {
+        deleteCategory(evt) {
             evt.preventDefault();
+
+            return; //disable for now
             const userId = localStorage.NETVAULT_USERID * 1;
             const categoryId = this.$props.data.category.categoryId;
 
@@ -77,11 +75,6 @@ export default Vue.extend({
                 this.submitSecondsLeft--;
                 if (this.submitSecondsLeft) this.timer();
             }, 1000);
-        },
-    },
-    watch: {
-        "data.show": function () {
-            this.label = "";
         },
     },
 });
