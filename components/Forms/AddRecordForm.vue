@@ -10,7 +10,7 @@
                 </div>
                 <div class="row">
                     <label for>Label</label>
-                    <input type="text" v-model="label" />
+                    <input type="text" v-model="label" ref="label" />
                 </div>
                 <div class="row submit">
                     <button type="submit" @click="addRecord">SUBMIT</button>
@@ -29,7 +29,7 @@ export default Vue.extend({
     props: ["data"],
     data() {
         return {
-            label: ""
+            label: "",
         };
     },
     methods: {
@@ -43,15 +43,23 @@ export default Vue.extend({
 
             this.$emit("toggleLoader", true);
 
-            pwApi.addRecord(record).then(res => {
+            pwApi.addRecord(record).then((res) => {
                 this.$props.data.show = false;
                 this.$emit("toggleLoader", false);
                 record.recordId = res.data.insertId;
 
                 this.$store.dispatch("pwmanager/addRecord", record);
             });
-        }
-    }
+        },
+    },
+    watch: {
+        "data.show": function () {
+            this.$nextTick(() => {
+                this.label = "";
+                this.$refs.label.focus();
+            });
+        },
+    },
 });
 </script>
 

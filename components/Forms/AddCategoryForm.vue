@@ -6,7 +6,7 @@
             <form action>
                 <div class="row">
                     <label for>Label</label>
-                    <input type="text" v-model="label" />
+                    <input type="text" v-model="label" ref="label" />
                 </div>
                 <div class="row submit">
                     <button type="submit" @click="addCategory">SUBMIT</button>
@@ -25,7 +25,7 @@ export default Vue.extend({
     props: ["data", "loader"],
     data() {
         return {
-            label: ""
+            label: "",
         };
     },
     methods: {
@@ -36,15 +36,23 @@ export default Vue.extend({
 
             this.$emit("toggleLoader", true);
 
-            pwApi.addCategory(category).then(res => {
+            pwApi.addCategory(category).then((res) => {
                 this.$props.data.show = false;
                 this.$emit("toggleLoader", false);
                 category.categoryId = res.data.insertId;
 
                 this.$store.dispatch("pwmanager/addCategory", category);
             });
-        }
-    }
+        },
+    },
+    watch: {
+        "data.show": function () {
+            this.$nextTick(() => {
+                this.label = "";
+                this.$refs.label.focus();
+            });
+        },
+    },
 });
 </script>
 

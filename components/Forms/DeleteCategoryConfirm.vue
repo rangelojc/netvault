@@ -61,15 +61,15 @@ export default Vue.extend({
         deleteRecord(evt) {
             evt.preventDefault();
             const userId = localStorage.NETVAULT_USERID * 1;
-            const recordId = this.$props.data.record.recordId;
+            const categoryId = this.$props.data.category.categoryId;
 
             this.$emit("toggleLoader", true);
 
-            pwApi.deleteRecord({ userId, recordId }).then((res) => {
+            pwApi.deleteCategory({ userId, categoryId }).then((res) => {
                 this.$props.data.show = false;
                 this.$emit("toggleLoader", false);
 
-                this.$store.dispatch("pwmanager/deleteRecord", recordId);
+                this.$store.dispatch("pwmanager/deleteCategory", categoryId);
             });
         },
         timer() {
