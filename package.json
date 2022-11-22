@@ -19,7 +19,7 @@
     "express": "^4.16.4",
     "express-session": "^1.17.1",
     "mysql2": "^2.0.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.15.8",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
